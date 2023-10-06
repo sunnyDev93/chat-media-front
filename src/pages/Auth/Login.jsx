@@ -35,18 +35,18 @@ const Login = () => {
           email: user.email,
         });
       }
-      console.log("ok");
+      console.log("ok", user);
       toast.success("Sign-in with Google successful!");
       navigate("/");
       console.log(user);
-      const uid = user.uid;
       const userInfo = {
+        uid: user.uid,
         email: user.email,
         name: user.displayName,
         phN: user.phoneNumber,
         avatar: user.photoURL,
       };
-      dispatch(setAuth({ uid, userInfo }));
+      dispatch(setAuth({ userInfo }));
       startSession(user);
     } catch (error) {
       console.error(error);

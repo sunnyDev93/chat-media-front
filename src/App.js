@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Footer, Header } from "./layout";
-import { Home, Login, Register } from "./pages";
+import { ChatMedia, Home, Login, PrivateRoute, Register } from "./pages";
 
 function App() {
   return (
-    <div className="bg-black">
+    <div className="bg-black ">
       <BrowserRouter>
         <Header />
         <div id="recaptcha-container"></div>
@@ -13,6 +13,14 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route
+            path="/chatmedia"
+            element={
+              <PrivateRoute>
+                <ChatMedia />
+              </PrivateRoute>
+            }
+          />
         </Routes>
         <Footer />
       </BrowserRouter>

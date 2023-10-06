@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}", "./node_modules/flowbite/**/*.js"],
   theme: {
     extend: {
+      colors: {
+        basic: "#36D45A",
+      },
       animation: {
         "float-up": "floatUp 1s ease-out",
         "fade-in": "fadeIn 1s ease-in-out",

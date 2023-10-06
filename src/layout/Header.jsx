@@ -35,6 +35,8 @@ const Header = () => {
   const location = useLocation();
   const isLoginRoute = location.pathname.includes("login");
   const isRegisterRoute = location.pathname.includes("register");
+  const isChatMediaRoute = location.pathname.includes("chatmedia");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -44,7 +46,7 @@ const Header = () => {
   const headerClasses = `fixed w-full z-10 top-0 flex items-center justify-center mx-auto py-5 px-5 sm:px-64 ${
     scrolling ? "bg-black" : "bg-transparent"
   } transition-all duration-300 ease-in-out`;
-  if (isLoginRoute || isRegisterRoute) return null;
+  if (isLoginRoute || isRegisterRoute || isChatMediaRoute) return null;
 
   return (
     <header className="">

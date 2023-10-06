@@ -10,3 +10,4 @@ export { default as Modal } from "./Modal";
 export { default as Collapse } from "./Collapse";
 export { default as MobileSlider } from "./MobileSlider";
 export { default as ScrollTo } from "./ScrollTo";
+export { default as FileDropZone } from "./FileDropZone";

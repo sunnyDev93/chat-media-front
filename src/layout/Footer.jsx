@@ -9,7 +9,7 @@ const Footer = () => {
   if (isLoginRoute || isRegisterRoute) return null;
   return (
     <div>
-      <footer className="p-4 sm:p-6 bg-black border-t border-gray-500 sticky bottom-0 z-50">
+      <footer className="p-4 sm:p-6 bg-black border-t border-gray-500 bottom-0 z-50">
         <div className="max-w-screen-xl mx-auto">
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0 flex justify-between items-center">

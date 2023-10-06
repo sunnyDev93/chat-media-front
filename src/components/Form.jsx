@@ -36,20 +36,22 @@ const Form = () => {
       );
       if (userCredential.user) {
         const user = userCredential.user;
-        const uid = user.uid;
         const userInfo = {
+          uid: user.uid,
           email: user.email,
           name: user.displayName,
           phN: user.phoneNumber,
           avatar: user.photoURL,
         };
-        dispatch(setAuth({ uid, userInfo }));
+        dispatch(setAuth(userInfo));
         startSession(user);
         navigate("/");
       }
     } catch (error) {
       const errorCode = error.code;
+      console.log("code", errorCode);
       const errorMessage = error.message;
+      console.log("msg", errorMessage);
     }
   };
   return (

@@ -3,25 +3,21 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { NAME } from "./constants";
 
-const initialState = {
-  uid: null,
-  user: {},
-  error: null,
-};
+const initialState = {};
 
 const authSlice = createSlice({
   name: NAME,
   initialState,
   reducers: {
     setAuth: (state, { payload }) => {
-      state.uid = payload.uid;
-      state.user = payload.user;
+      state.user = payload;
       state.error = null;
+      state.isAuthenticated = true;
     },
     clearAuth: (state) => {
-      state.uid = null;
       state.user = {};
       state.token = null;
+      state.isAuthenticated = false;
     },
     setError: (state, { payload }) => {
       state.error = payload;

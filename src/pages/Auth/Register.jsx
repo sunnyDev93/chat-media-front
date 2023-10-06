@@ -43,14 +43,14 @@ const Register = () => {
       toast.success("Sign-in with Google successful!");
       navigate("/");
       console.log(user);
-      const uid = user.uid;
       const userInfo = {
+        uid: user.uid,
         email: user.email,
         name: user.displayName,
         phN: user.phoneNumber,
         avatar: user.photoURL,
       };
-      dispatch(setAuth({ uid, userInfo }));
+      dispatch(setAuth({ userInfo }));
       startSession(user);
     } catch (error) {
       console.error(error);
@@ -86,11 +86,18 @@ const Register = () => {
       .confirm(values.code)
       .then((res) => {
         toast.success("User signed in successfully.");
+        const userInfo = {
+          uid: res.user.uid,
+          phN: res.user.phoneNumber,
+        };
+        dispatch(setAuth({ userInfo }));
+        startSession(userInfo);
         navigate("/");
         console.log(res);
       })
       .catch(() => {
         // setLoading(false);
+        toast.error("Invalid Code.");
       });
   }
   return (

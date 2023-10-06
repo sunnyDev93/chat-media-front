@@ -14,9 +14,10 @@ import storage from "redux-persist/lib/storage";
 import authSlice from "./auth/slice";
 
 import thunk from "redux-thunk"; // Import Redux Thunk middleware
+import chatMediaSlice from "./chatMedia/slice";
+
 const persistConfig = {
   key: "root",
-  version: 1,
   storage,
   //   whitelist: [AUTH_NAME, CHAT_NAME, COMMON_NAME],
 };
@@ -27,6 +28,7 @@ const persistedReducer = persistReducer(
   persistConfig,
   combineReducers({
     auth: authSlice.reducer,
+    chatMedia: chatMediaSlice.reducer,
   })
 );
 
