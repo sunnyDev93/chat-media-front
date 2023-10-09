@@ -83,7 +83,8 @@ const Login = () => {
       .confirm(values.code)
       .then(() => {
         toast.success("User signed in successfully.");
-        navigate("/");
+        // navigate("/");
+        window.location.href = "/";
       })
       .catch(() => {
         // setLoading(false);

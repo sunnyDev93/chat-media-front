@@ -1,15 +1,15 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { startSession } from "../storage/session";
-import { setAuth } from "../store/auth/slice";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { handleLogin } from "../store/auth/action";
+import { isLoadingStatus } from "../store/auth/selectors";
 
 const Form = () => {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const isLoading = useSelector(isLoadingStatus);
   // const error = useSelector(getError);
   //   const onSubmit = async ({ email, password }) => {
   //     e.preventDefault();
@@ -43,15 +43,10 @@ const Form = () => {
           phN: user.phoneNumber,
           avatar: user.photoURL,
         };
-        dispatch(setAuth(userInfo));
-        startSession(user);
-        navigate("/");
+        dispatch(handleLogin(userInfo));
       }
     } catch (error) {
-      const errorCode = error.code;
-      console.log("code", errorCode);
-      const errorMessage = error.message;
-      console.log("msg", errorMessage);
+      toast.error("Invalid Password!");
     }
   };
   return (
@@ -107,7 +102,8 @@ const Form = () => {
           type="submit"
           className="text-sm justify-center w-full border border-white hover:border-gray-800 md:flex md:mx-auto text-white bg-gray-800 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg px-5 py-2.5 text-center"
         >
-          Login with Email
+        {isLoading ? <img src="./assets/img/loading.svg" alt="Loading..." className="h-10" /> :  <span>Login with Email</span>}
+         
         </button>
       </form>
     </div>

@@ -11,7 +11,7 @@ const TypingText = ({ orgText, className }) => {
       } else {
         clearInterval(typingInterval);
       }
-    }, 50); // Adjust the interval to control typing speed
+    }, 2); // Adjust the interval to control typing speed
     return () => clearInterval(typingInterval);
   }, [text, originalText]);
 

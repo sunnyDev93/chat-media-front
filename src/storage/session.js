@@ -1,12 +1,12 @@
-export const startSession = (user) => {
+export const startSession = (accessToken) => {
   // sessionStorage.setItem("email", user.email);
-  sessionStorage.setItem("uid", user.uid);
+  sessionStorage.setItem("token", accessToken);
 };
 
 export const getSession = () => {
   return {
     // email: sessionStorage.getItem("email"),
-    uid: sessionStorage.getItem("uid"),
+    token: sessionStorage.getItem("token"),
   };
 };
 
@@ -15,5 +15,5 @@ export const endSession = () => {
 };
 
 export const isLoggedIn = () => {
-  return getSession().uid;
+  return getSession().token;
 };

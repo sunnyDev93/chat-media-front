@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Collapse from "./Collapse";
+import TypingText from "./TypingText";
 
 const WorkTab = () => {
   const [firstTab, setFirstTab] = useState("first");
   const [secondTab, setSecondTab] = useState("");
   const [thirdTab, setThirdTab] = useState("");
+  const [script, setScript] = useState("");
   const firstTabClk = () => {
     setFirstTab("fist");
     setSecondTab("");
@@ -133,7 +135,14 @@ const WorkTab = () => {
                             <strong>NASA:</strong> First All Female Space Walk
                           </p>
                         </div>
-                        <button className="inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white text-white focus:ring-4 focus:outline-none focus:ring-purple-200 shadow-md shadow-pink-500">
+                        <button
+                          className="inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white text-white shadow-md shadow-pink-500"
+                          onClick={() => {
+                            setScript(
+                              "Hello. Hello, this is James. I just called back since I didn't receive your call about 12 hours ago. I am located in Orlando now. I am a U.S. citizen. Sorry? I can't hear your voice clearly. Okay, okay, okay. Okay, thank you. Bye."
+                            );
+                          }}
+                        >
                           <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-black rounded-md group-hover:bg-opacity-0">
                             Run Demo
                           </span>
@@ -141,7 +150,10 @@ const WorkTab = () => {
                       </div>
                       <div className="my-5">
                         <audio controls className="w-full">
-                          <source src="your-audio-file.mp3" type="audio/mpeg" />
+                          <source
+                            src="./assets/audio/2.mp3"
+                            type="audio/mpeg"
+                          />
                           Your browser does not support the audio element.
                         </audio>
                       </div>
@@ -179,9 +191,16 @@ const WorkTab = () => {
                         </span>
                       </h2>
                       <div className="bg-black h-4/5 rounded-md">
-                        <p className="p-5 text-white">
-                          The response will show here
-                        </p>
+                        {script ? (
+                          <TypingText
+                            orgText={script}
+                            className="text-white p-5"
+                          />
+                        ) : (
+                          <p className="p-5 text-white">
+                            The response will show here
+                          </p>
+                        )}
                       </div>
                       <p className="text-lg font-normal text-gray-500 dark:text-gray-400 mb-4"></p>
                     </div>

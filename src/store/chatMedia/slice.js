@@ -6,6 +6,7 @@ const initialState = {
   error: null,
   transcript: [],
   isSelected: 0,
+  isLoading: false,
 };
 
 const chatMediaSlice = createSlice({
@@ -24,21 +25,25 @@ const chatMediaSlice = createSlice({
       state.isGetTranscript = false;
       state.isSelected = 0;
     },
-    setChat: (state, { payload }) => {
-      state.chat = payload;
+    setChat: (state) => {
+      // state.chat = payload;
       state.isGetChat = true;
     },
     clearChat: (state) => {
-      state.chat = {};
+      // state.chat = {};
       state.isGetChat = false;
     },
+
     // setError: (state, { payload }) => {
     //   state.error = payload;
     // },
     stateReset: () => initialState,
-    // signupStart: (state) => {
-    //   state.isLoading = true;
-    // },
+    transProcessing: (state) => {
+      state.isLoading = true;
+    },
+    transSuccess: (state) => {
+      state.isLoading = false;
+    },
     // signupSuccess: (state, action) => {
     //   state.isLoading = false;
     //   state.user = action.payload;
@@ -50,7 +55,14 @@ const chatMediaSlice = createSlice({
     // },
   },
 });
-export const { setChat, clearChat, setTranscript, clearTranscript, setSelect } =
-  chatMediaSlice.actions;
+export const {
+  setChat,
+  clearChat,
+  setTranscript,
+  clearTranscript,
+  setSelect,
+  transProcessing,
+  transSuccess,
+} = chatMediaSlice.actions;
 
 export default chatMediaSlice;

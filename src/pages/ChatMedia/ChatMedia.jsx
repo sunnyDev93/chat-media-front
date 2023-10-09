@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { FileDropZone } from "../../components";
 import { Link } from "react-router-dom";
 import Chatty from "./Chatty";
 import { clearTranscript } from "../../store/chatMedia/slice";
-import { useDispatch, useSelector } from "react-redux";
-import { selectTranscript } from "../../store/chatMedia/selectors";
+import { useDispatch } from "react-redux";
 import TranscriptPanel from "./TranscriptPanel";
 
 const ChatMedia = () => {
@@ -42,7 +41,7 @@ const ChatMedia = () => {
 
   return (
     <div className="xl:grid xl:grid-cols-7 bg-white">
-      <div className="flex justify-between xl:hidden">
+      {/* <div className="flex justify-between xl:hidden">
         <div className="mt-3">
           <Link to="/" className="text-gray-400 text-2xl pt-3 px-3 mt-3">
             Home
@@ -51,7 +50,7 @@ const ChatMedia = () => {
           <span className="text-basic font-bold ml-2 text-2xl">ChatMedia</span>
         </div>
         <div className=""></div>
-      </div>
+      </div> */}
 
       <div className="xl:col-span-1 xl:h-screen mt-3 xl:mt-0 lg:hidden xl:block bg-black">
         {/* <FileUpload /> */}
@@ -76,7 +75,7 @@ const ChatMedia = () => {
           </button>
         </div>
       </div>
-      <div className="xl:col-span-3 textSection h-screen">
+      <div className="xl:col-span-3 textSection flex flex-col h-screen">
         <h2 className="text-black text-2xl font-bold pt-3 pl-5">Transcript</h2>
         {/* <div className="bg-[#101014] max-h-full m-5"></div> */}
         <TranscriptPanel />
@@ -117,6 +116,7 @@ const ChatMedia = () => {
         <div className="mr-5">
           <Chatty />
         </div>
+        {/* <LangChainChat /> */}
       </div>
     </div>
   );

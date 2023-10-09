@@ -13,7 +13,10 @@ import {
   clearTranscript,
   setSelect,
   setTranscript,
+  transProcessing,
+  transSuccess,
 } from "../store/chatMedia/slice";
+import { isBigFile } from "../utils/fileProcess";
 import FileButton from "./FileButton";
 
 const isAudioOrVideoFile = (file) => {
@@ -37,7 +40,9 @@ const FileDropzone = () => {
           );
         } else {
           // Handle the accepted file (e.g., upload it to a server)
-          if (file) {
+          console.log(isBigFile(file));
+          if (!isBigFile(file)) {
+            dispatch(transProcessing());
             const formData = new FormData();
             formData.append("file", file);
 
@@ -54,18 +59,18 @@ const FileDropzone = () => {
               );
 
               console.log("File uploaded:", response);
-              if (!response?.data.transcript) {
-                toast.success("Sign-in with Google successful!");
-              }
               const payload = {
                 transcript: response?.data.transcript,
                 fileName: response?.data.fileName,
               };
               dispatch(setTranscript(payload));
               dispatch(setSelect({ isSelected: 0 }));
+              dispatch(transSuccess());
             } catch (error) {
               console.error("Error uploading file:", error);
             }
+          } else {
+            toast.error("Free users can upload only under 10MB audio file.");
           }
           // uploadFileToServer(file);
         }

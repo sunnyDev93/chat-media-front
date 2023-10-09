@@ -9,13 +9,16 @@ const authSlice = createSlice({
   name: NAME,
   initialState,
   reducers: {
-    setAuth: (state, { payload }) => {
-      state.user = payload;
+    startAuth: (state) => {
+      state.isLoading= true;
+    },
+    setAuth: (state, {payload}) => {
+      state.token = payload.token;
       state.error = null;
       state.isAuthenticated = true;
+      state.isLoading = false;
     },
     clearAuth: (state) => {
-      state.user = {};
       state.token = null;
       state.isAuthenticated = false;
     },
@@ -26,18 +29,20 @@ const authSlice = createSlice({
     signupStart: (state) => {
       state.isLoading = true;
     },
-    signupSuccess: (state, action) => {
+    signupSuccess: (state, { payload }) => {
       state.isLoading = false;
-      state.user = action.payload;
+      state.user = payload;
       state.error = null;
+      state.isAuthenticated = true;
     },
-    signupFailure: (state, action) => {
+    signupFailure: (state, { payload }) => {
       state.isLoading = false;
-      state.error = action.payload;
+      state.error = payload;
     },
   },
 });
 export const {
+  startAuth,
   setAuth,
   clearAuth,
   setError,

@@ -1,65 +1,97 @@
+import { toast } from "react-toastify";
+import { startSession } from "../../storage/session";
 import {
   clearAuth,
+  setAuth,
   // setAuth,
   // setError,
   signupFailure,
   signupStart,
   signupSuccess,
+  startAuth,
 } from "./slice";
 // import jwtEncode from "jwt-encode";
 
-// export const login =
-//   ({ email, password, navigate }) =>
-//   async (dispatch) => {
-//     try {
-//       //   const response = await api.post("/login", credentials);
-//       const user = users.find(
-//         (user) =>
-//           (user.email === email || user.username === email) &&
-//           user.password === password
-//       );
-//       console.log(user);
-//       if (typeof user === "undefined") throw new Error("Auth failed");
-//       const secretKey = "jack"; // Replace with your actual secret key
-//       const token = jwtEncode(user, secretKey);
-//       // const isAuthenticated = true;
-//       dispatch(setAuth({ token, user }));
-//       dispatch(setError({ error: undefined }));
-//       console.log("success");
-//       navigate("/");
-//     } catch (error) {
-//       console.log("error", error);
-//       // dispatch(setError({ error: "auth", message: "failed" }));
-//       console.log("error");
-//     }
-//   };
+export const handleLogin =
+  (userInfo) =>
+  async (dispatch) => {
+    // try {
+    //     const response = await fetch("http://localhost:8000/api/auth/login", userInfo);
+    //     const token = response.accessToken;
+    //   // const isAuthenticated = true;
+    //   dispatch(setAuth(token));
+    //   startSession(token);
+    //   // navigate("/");
+    //   window.location.href = "/";
+    //   toast.success("Welcome to ChatMedia!");
+    // } catch (error) {
+    //   console.log("error", error);
+    //   // dispatch(setError({ error: "auth", message: "failed" }));
+    //   console.log("error");
+    // }
+    try {
+      dispatch(startAuth());
+      const response = await fetch("http://localhost:8000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userInfo),
+      });
+
+      if (!response.ok) {
+       toast.error("Login Failed!");
+      }
+
+      const data = await response.json();
+      console.log(data.accessToken);
+      const token = data.accessToken;
+      if (token) {
+        startSession(token);
+        // navigate("/");
+        window.location.href = "/";
+      }
+      dispatch(setAuth({token}))
+    } catch (error) {
+      dispatch(signupFailure(error.message));
+    }
+  };
 
 export const logout =
   ({ navigate }) =>
   async (dispatch) => {
     dispatch(clearAuth());
-    navigate("/");
+    navigate("/login");
   };
-export const signupUser = (userData) => async (dispatch) => {
-  dispatch(signupStart());
+export const handleRegister =
+  (userData, { navigate }) =>
+  async (dispatch) => {
+    console.log(userData);
+    dispatch(signupStart());
+    try {
+      const response = await fetch("http://localhost:8000/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
 
-  try {
-    // Make an API request to sign up the user
-    // const response = await fetch("/api/signup", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(userData),
-    // });
+      if (!response.ok) {
+        throw new Error("Signup failed");
+      }
 
-    // if (!response.ok) {
-    //   throw new Error("Signup failed");
-    // }
+      const data = await response.json();
+      console.log(data.user);
+      const user = data.user;
+      if (user) {
+        startSession(user);
+        // navigate("/");
+        window.location.href = "/";
+      }
 
-    // const user = await response.json();
-    dispatch(signupSuccess(userData));
-  } catch (error) {
-    dispatch(signupFailure(error.message));
-  }
-};
+      dispatch(signupSuccess({ user }));
+    } catch (error) {
+      dispatch(signupFailure(error.message));
+    }
+  };

@@ -1,21 +1,29 @@
 // src/components/ChatComponent.js
 // import { TypingIndicator } from "@chatscope/chat-ui-kit-react";
 import React, { useState, useRef, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { TypingText } from "../../components";
 import {
+  isChatLoading,
   selectIsSelected,
   selectTranscript,
 } from "../../store/chatMedia/selectors";
+import { clearChat, setChat } from "../../store/chatMedia/slice";
 
 const ChatComponent = () => {
   const [chatHistory, setChatHistory] = useState([]);
   const [message, setMessage] = useState("");
-  const isSelected = useSelector(selectIsSelected);
   const transcript = useSelector(selectTranscript);
+  const [script, setScript] = useState([]);
+  const isSelected = useSelector(selectIsSelected);
+  const isLoading = useSelector(isChatLoading);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    setScript(transcript);
+  }, [transcript]);
   const appendMsg =
     "please give me some answers based on this:" +
-    transcript[isSelected]?.transcript;
+    script[isSelected]?.transcript;
   const qaRef = useRef(null); // Reference to the QA field
 
   const apiUrl = "https://api.openai.com/v1/chat/completions";
@@ -26,6 +34,7 @@ const ChatComponent = () => {
   const fetchChatResponse = async (e) => {
     e.preventDefault();
     try {
+      dispatch(setChat());
       const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
@@ -61,11 +70,55 @@ const ChatComponent = () => {
       ]);
 
       setMessage("");
+      dispatch(clearChat());
     } catch (error) {
       console.error("Error fetching chat response:", error);
     }
   };
 
+  // const apiUrl = "http://localhost:3001/api/langchain";
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await fetch(apiUrl, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         model: "gpt-3.5-turbo",
+  //         messages: [
+  //           {
+  //             role: "system",
+  //             content: "You are a helpful assistant.",
+  //           },
+  //           {
+  //             role: "user",
+  //             content: message + appendMsg,
+  //           },
+  //         ],
+  //       }),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error("Network response was not ok");
+  //     }
+
+  //     const data = await response.json();
+  //     const assistantResponse = data.choices[0].message.content;
+
+  //     setChatHistory([
+  //       ...chatHistory,
+  //       { role: "user", text: message },
+  //       { role: "assistant", text: assistantResponse },
+  //     ]);
+
+  //     setMessage("");
+  //   } catch (error) {
+  //     console.error("Error fetching chat response:", error);
+  //   }
+  //   console.log(getLangChainResult(appendMsg, message));
+  // };
   // Automatically scroll the QA field to the bottom when new messages are added
   useEffect(() => {
     if (qaRef.current) {
@@ -76,7 +129,7 @@ const ChatComponent = () => {
   return (
     <div className="flex flex-col h-screen">
       <div className="overflow-y-auto flex-grow mt-3" ref={qaRef}>
-        <span className="font-bold pt-5 text-2xl">Chat</span>
+        <span className="font-bold pt-5 text-2xl px-5">Chat</span>
         {chatHistory.map((message, index) => (
           <div key={index} className={`mb-2 mt-3`}>
             {message.role === "assistant" ? (
@@ -93,7 +146,14 @@ const ChatComponent = () => {
           </div>
         ))}
       </div>
-      <form onSubmit={fetchChatResponse} className="flex">
+      {isLoading && (
+        <img
+          src="./assets/img/chatLoading.svg"
+          alt="chatLoading"
+          className="h-10 flex mr-auto"
+        />
+      )}
+      <form onSubmit={fetchChatResponse} className="flex mb-3 mx-auto xl:mx-2">
         <input
           type="text"
           value={message}
