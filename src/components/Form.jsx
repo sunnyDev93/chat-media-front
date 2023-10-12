@@ -36,9 +36,11 @@ const Form = () => {
       );
       if (userCredential.user) {
         const user = userCredential.user;
+        console.log("user", user);
         const userInfo = {
           uid: user.uid,
           email: user.email,
+          password: password,
           name: user.displayName,
           phN: user.phoneNumber,
           avatar: user.photoURL,
@@ -102,8 +104,15 @@ const Form = () => {
           type="submit"
           className="text-sm justify-center w-full border border-white hover:border-gray-800 md:flex md:mx-auto text-white bg-gray-800 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg px-5 py-2.5 text-center"
         >
-        {isLoading ? <img src="./assets/img/loading.svg" alt="Loading..." className="h-10" /> :  <span>Login with Email</span>}
-         
+          {isLoading ? (
+            <img
+              src="./assets/img/loading.svg"
+              alt="Loading..."
+              className="h-10"
+            />
+          ) : (
+            <span>Login with Email</span>
+          )}
         </button>
       </form>
     </div>

@@ -40,6 +40,7 @@ const TranscriptPanel = () => {
                   className={`m-5 p-5 rounded-lg max-h-screen bg-gray-400`}
                 >
                   <span className="text-white ">{item.transcript}</span>
+                  {/* <TypingText className="text-white" orgText={item.transcript} spd={1} /> */}
                 </div>
               )
           )}

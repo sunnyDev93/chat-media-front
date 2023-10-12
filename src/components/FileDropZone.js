@@ -1,16 +1,11 @@
 import axios from "axios";
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  selectIsSelected,
-  selectTranscript,
-} from "../store/chatMedia/selectors";
 
 import {
-  clearTranscript,
   setSelect,
   setTranscript,
   transProcessing,
@@ -18,6 +13,8 @@ import {
 } from "../store/chatMedia/slice";
 import { isBigFile } from "../utils/fileProcess";
 import FileButton from "./FileButton";
+import { selectUser } from "./../store/auth/selectors";
+import { useNavigate } from "react-router-dom";
 
 const isAudioOrVideoFile = (file) => {
   const allowedExtensions = ["mp3", "wav", "mp4", "avi", "mkv"]; // Add more allowed extensions if needed
@@ -27,52 +24,66 @@ const isAudioOrVideoFile = (file) => {
 
 const FileDropzone = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector(selectUser);
+  const curToken = user.token;
+  const uid = user?.uid;
   const onDrop = useCallback(
     async (acceptedFiles) => {
       if (acceptedFiles.length === 0) {
         toast.error("Please upload an audio or video file.");
       } else {
-        const file = acceptedFiles[0];
-        console.log(file);
-        if (!isAudioOrVideoFile(file)) {
-          toast.error(
-            "Invalid file type. Please upload an audio or video file."
-          );
+        if (curToken < 1000) {
+          toast.warning(`Please charge your token. Current token: ${curToken}`);
+          navigate("/plan");
         } else {
-          // Handle the accepted file (e.g., upload it to a server)
-          console.log(isBigFile(file));
-          if (!isBigFile(file)) {
-            dispatch(transProcessing());
-            const formData = new FormData();
-            formData.append("file", file);
-
-            // Make an Axios or Fetch POST request to the server to handle the file upload
-            try {
-              const response = await axios.post(
-                "http://localhost:8000/api/files/upload",
-                formData,
-                {
-                  headers: {
-                    "Content-Type": "multipart/form-data",
-                  },
-                }
-              );
-
-              console.log("File uploaded:", response);
-              const payload = {
-                transcript: response?.data.transcript,
-                fileName: response?.data.fileName,
-              };
-              dispatch(setTranscript(payload));
-              dispatch(setSelect({ isSelected: 0 }));
-              dispatch(transSuccess());
-            } catch (error) {
-              console.error("Error uploading file:", error);
-            }
+          const file = acceptedFiles[0];
+          console.log(file);
+          if (!isAudioOrVideoFile(file)) {
+            toast.error(
+              "Invalid file type. Please upload an audio or video file."
+            );
           } else {
-            toast.error("Free users can upload only under 10MB audio file.");
+            // Handle the accepted file (e.g., upload it to a server)
+            if (!isBigFile(file)) {
+              const formData = new FormData();
+              formData.append("file", file);
+              formData.append("uid", uid);
+
+              // Make an Axios or Fetch POST request to the server to handle the file upload
+              try {
+                const response = await axios.post(
+                  "http://localhost:8000/api/files/upload",
+                  formData,
+                  {
+                    headers: {
+                      uid: uid,
+                      "Content-Type": "multipart/form-data",
+                    },
+                  }
+                );
+                dispatch(transProcessing());
+                console.log("File uploaded:", response);
+                const payload = {
+                  transcript: response?.data.transcript,
+                  fileName: response?.data.fileName,
+                };
+                const token = response?.data.token;
+                if (token < 1000) {
+                  toast.warning(`Remained token: ${token}`);
+                }
+                dispatch(setTranscript(payload));
+                // dispatch(updateToken(token));
+                dispatch(setSelect({ isSelected: 0 }));
+                dispatch(transSuccess());
+              } catch (error) {
+                console.error("Error uploading file:", error);
+              }
+            } else {
+              toast.error("Free users can upload only under 10MB audio file.");
+            }
+            // uploadFileToServer(file);
           }
-          // uploadFileToServer(file);
         }
       }
     },

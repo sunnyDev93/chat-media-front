@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const TypingText = ({ orgText, className }) => {
+const TypingText = ({ orgText, className, spd }) => {
   const [text, setText] = useState("");
   const originalText = orgText;
 
@@ -11,9 +11,9 @@ const TypingText = ({ orgText, className }) => {
       } else {
         clearInterval(typingInterval);
       }
-    }, 2); // Adjust the interval to control typing speed
+    }, spd); // Adjust the interval to control typing speed
     return () => clearInterval(typingInterval);
-  }, [text, originalText]);
+  }, [text, originalText, spd]);
 
   return (
     <div>

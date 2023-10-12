@@ -8,6 +8,9 @@ const WorkTab = () => {
   const [secondTab, setSecondTab] = useState("");
   const [thirdTab, setThirdTab] = useState("");
   const [script, setScript] = useState("");
+
+  const text =
+    "Sono le 6 di mattina, suona la sveglia, riavvio la sveglia, dopo poco risuona la sveglia, riavvio la sveglia, rirrisuona la sveglia, picchio il cellulare, mi faccio male alla mano e mi alzo incazzato, capisco anche che odio tutti e vorrei morire all'istante, all'improvviso sono pervaso dal senso di colpa di non aver fatto assolutamente nulla il giorno prima e anche perché qualsiasi cosa abbia fatto il giorno prima avrei comunque potuto studiare di più, mentre faccio colazione mi cadono i cereali per terra, sporco di latte il pijama, mi cadono i biscotti del latte, il mondo fa schifo e sono irritato, arrivo a scuola, tutta la mattina studio, rifasso, copio e chiedo ai miei compagni informazioni sui compiti che non avevo fatto perché ho dormito invece di fare i compiti, arrivo a casa sudato marcio, mi levo le 8 felpe che avevo e mangio fino a stare male, mi sento in colpa perché ho mangiato tantissimo, sono grasso, devo studiare, nessuno mi vuole, la mia vita non ha senso, sono le 15, mi siedo sul divano e sono le 15.30, mi chiedo com'è possibile che il tempo passi così in fretta e sono le 16, penso ah dai vabbè inizierò a studiare alle 16.30, ma alle 16.31 penso che ormai è passato troppo tempo e che studierò alle 17, mi giustifico pensando che tanto non ho fatto nulla finora e non ha senso iniziare adesso, vado a dormire, non ho fatto nulla, la mia vita fa schifo, fine. Sottotitoli creati dalla comunità Amara.org";
   const firstTabClk = () => {
     setFirstTab("fist");
     setSecondTab("");
@@ -138,9 +141,7 @@ const WorkTab = () => {
                         <button
                           className="inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white text-white shadow-md shadow-pink-500"
                           onClick={() => {
-                            setScript(
-                              "Hello. Hello, this is James. I just called back since I didn't receive your call about 12 hours ago. I am located in Orlando now. I am a U.S. citizen. Sorry? I can't hear your voice clearly. Okay, okay, okay. Okay, thank you. Bye."
-                            );
+                            setScript(text);
                           }}
                         >
                           <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-black rounded-md group-hover:bg-opacity-0">
@@ -190,10 +191,11 @@ const WorkTab = () => {
                           Transcription Output
                         </span>
                       </h2>
-                      <div className="bg-black h-4/5 rounded-md">
+                      <div className="bg-black max-h-full rounded-md">
                         {script ? (
                           <TypingText
                             orgText={script}
+                            spd={10}
                             className="text-white p-5"
                           />
                         ) : (
@@ -274,13 +276,13 @@ const WorkTab = () => {
           )}
           {thirdTab ? (
             <div
-              className="p-4 rounded-lg bg-[#101014] w-8/12 mx-auto"
+              className="p-4 my-5 rounded-lg bg-[#101014] w-8/12 mx-auto"
               role="tabpanel"
               aria-labelledby="settings-tab"
             >
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-200 dark:text-gray-400">
                 This is some placeholder content the{" "}
-                <strong className="font-medium text-gray-800 dark:text-white">
+                <strong className="font-medium text-gray-400 dark:text-white">
                   Settings tab's associated content
                 </strong>
                 . Clicking another tab will toggle the visibility of this one

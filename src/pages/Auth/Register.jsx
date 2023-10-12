@@ -92,7 +92,7 @@ const Register = () => {
         };
         dispatch(setAuth({ userInfo }));
         startSession(userInfo);
-        // navigate("/");
+        navigate("/login");
         window.location.href = "/";
         console.log(res);
       })

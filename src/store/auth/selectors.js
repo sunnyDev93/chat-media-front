@@ -14,11 +14,18 @@ export const getToken = createSelector(
   selectRoot, // Update this to select the 'root' key
   (root) => root.auth?.token // Access auth.token from the 'root' slice
 );
-
+export const getTokenAmt = createSelector(
+  selectRoot, // Update this to select the 'root' key
+  (root) => root.auth?.user?.token // Access auth.token from the 'root' slice
+);
 // Create a selector to get the user object from the auth slice
 export const selectUser = createSelector(
   selectRoot, // Update this to select the 'root' key
-  (root) => root.auth?.user?.user // Access auth.user from the 'root' slice
+  (root) => root.auth?.user // Access auth.user from the 'root' slice
+);
+export const selectToken = createSelector(
+  selectRoot, // Update this to select the 'root' key
+  (root) => root.auth?.token // Access auth.user from the 'root' slice
 );
 
 export const getAuthStatus = createSelector(

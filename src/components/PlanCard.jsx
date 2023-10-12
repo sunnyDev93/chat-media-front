@@ -1,20 +1,60 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { selectToken } from "../store/auth/selectors";
+import { makePayment } from "../utils/makePayment";
 
-const PlanCard = ({ title, currency, price, text, service, isMobile }) => {
+const PlanCard = ({
+  name,
+  currency,
+  price,
+  text,
+  description,
+  service,
+  isMobile,
+  tokenAmount,
+}) => {
   const [selectedPlan, setSelectedPlan] = useState("month");
+  const token = useSelector(selectToken);
   const popularClass = `${
-    title === "Basic" && !isMobile ? "scale-y-110 scale-x-105" : ""
+    name === "Basic" && !isMobile ? "scale-y-110 scale-x-105" : ""
   } bg-transparent border-2 border-[#36D45A] rounded-lg`;
   const handleToggle = () => {
     // Toggle between 'month' and 'year' plans when the switch is clicked
     const newPlan = selectedPlan === "month" ? "year" : "month";
     setSelectedPlan(newPlan);
   };
+  const handlePayment = () => {
+    const paymentMethodTypes = ["card"];
+    if (price > 0) {
+      if (selectedPlan === "year") {
+        const plan = {
+          name: name,
+          price: price * 10.8,
+          productOwner: "Simone Lamanna",
+          description: description,
+          quantity: 1,
+          tokenAmount: tokenAmount,
+        };
+        makePayment(plan, paymentMethodTypes, token);
+      } else {
+        const plan = {
+          name: name,
+          price: price,
+          productOwner: "Simone Lamanna",
+          description: description,
+          tokenAmount: tokenAmount,
+          quantity: 1,
+        };
+        makePayment(plan, paymentMethodTypes, token);
+      }
+    } else {
+    }
+  };
 
   return (
     <div className="sm:mx-5 mx-2">
       <div className={popularClass}>
-        {title === "Basic" ? (
+        {name === "Basic" ? (
           <>
             <svg
               className="w-5 h-5"
@@ -39,9 +79,9 @@ const PlanCard = ({ title, currency, price, text, service, isMobile }) => {
 
         <div className="w-full max-w-sm p-4 shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
           <h5 className="mb-4 text-xl font-medium text-gray-100 text-center">
-            {title}
+            {name}
           </h5>
-          {price === "0" ? (
+          {price === 0 ? (
             ""
           ) : (
             <div className="flex justify-center my-5">
@@ -107,7 +147,10 @@ const PlanCard = ({ title, currency, price, text, service, isMobile }) => {
               </li>
             ))}
           </ul>
-          <button className="relative flex mx-auto items-center justify-center p-0.5 mb-2 overflow-hidden text-sm font-medium text-white rounded-lg group bg-gradient-to-br from-green-400 to-green-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+          <button
+            className="relative flex mx-auto items-center justify-center p-0.5 mb-2 overflow-hidden text-sm font-medium text-white rounded-lg group bg-gradient-to-br from-green-400 to-green-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white"
+            onClick={handlePayment}
+          >
             <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-black rounded-md group-hover:bg-opacity-0">
               Choose Plan
             </span>

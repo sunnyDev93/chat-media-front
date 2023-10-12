@@ -4,7 +4,8 @@ import { MenuItem } from "../components";
 import { endSession } from "../storage/session";
 import { logout } from "../store/auth/action";
 import { useDispatch, useSelector } from "react-redux";
-import { getAuthStatus, selectUser } from "../store/auth/selectors";
+import { getAuthStatus, getToken, selectUser } from "../store/auth/selectors";
+import getUser from "../utils/user/getUser";
 
 const Header = () => {
   const menuItems = [
@@ -15,7 +16,8 @@ const Header = () => {
   ];
 
   const [scrolling, setScrolling] = useState(false);
-
+  const token = useSelector(getToken);
+  const dispatch = useDispatch();
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 100) {
@@ -25,13 +27,16 @@ const Header = () => {
         setScrolling(false);
       }
     };
+    if (token) {
+      dispatch(getUser(token));
+    }
 
     window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [dispatch]);
 
   const location = useLocation();
   const isLoginRoute = location.pathname.includes("login");
@@ -39,7 +44,6 @@ const Header = () => {
   const isChatMediaRoute = location.pathname.includes("chatmedia");
   const isAuthenticated = useSelector(getAuthStatus);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(selectUser);
   const handleLogout = () => {
@@ -257,36 +261,37 @@ const Header = () => {
                 role="tooltip"
                 className="absolute z-10 invisible inline-block w-64 text-sm transition-opacity duration-300  border rounded-lg shadow-sm opacity-0 text-gray-400 bg-black border-gray-600"
               >
-                <div className="p-3">
-                  <div className="flex items-center justify-between mb-2">
-                    <div>
-                      <button
-                        type="button"
-                        onClick={handleLogout}
-                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                      >
-                        Sign Out
-                      </button>
+                {user ? (
+                  <div className="p-3">
+                    <div className="flex items-center justify-between mb-2">
+                      <div>
+                        <button
+                          type="button"
+                          onClick={handleLogout}
+                          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                        >
+                          Sign Out
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                  <p className="text-base font-semibold leading-none text-white mt-3">
-                    Current Plan:{" "}
-                    <span className="capitalize">{user?.plan}</span>
-                  </p>
-                  <p className="text-base font-semibold leading-none text-white mt-3">
-                    Token: <span className="capitalize">{user?.token}</span>
-                  </p>
-                  <p className="text-base font-semibold leading-none text-white mt-3">
-                    Role: <span className="capitalize">{user?.role}</span>
-                  </p>
-                  <p className="mb-1 text-sm font-semibold text-white mt-3">
-                    Price:
-                    <span className="text-gray-400 mx-1">€1.49/credit</span>
-                  </p>
-                  <span className="text-gray-400">
-                    1 Credit = 50 Min of audio/video to text transcription.
-                  </span>
-                  {/* <ul className="flex text-sm">
+                    <p className="text-base font-semibold leading-none text-white mt-3">
+                      Current Plan:{" "}
+                      <span className="capitalize">{user?.plan}</span>
+                    </p>
+                    <p className="text-base font-semibold leading-none text-white mt-3">
+                      Token: <span className="capitalize">{user?.token}</span>
+                    </p>
+                    <p className="text-base font-semibold leading-none text-white mt-3">
+                      Role: <span className="capitalize">{user?.role}</span>
+                    </p>
+                    <p className="mb-1 text-sm font-semibold text-white mt-3">
+                      Price:
+                      <span className="text-gray-400 mx-1">€1.49/credit</span>
+                    </p>
+                    <span className="text-gray-400">
+                      1 Credit = 50 Min of audio/video to text transcription.
+                    </span>
+                    {/* <ul className="flex text-sm">
                     <li className="mr-2">
                       <a href="#" className="hover:underline">
                         <span className="font-semibold text-white">799</span>
@@ -300,7 +305,15 @@ const Header = () => {
                       </a>
                     </li>
                   </ul> */}
-                </div>
+                  </div>
+                ) : (
+                  <img
+                    src="./assets/img/loading.svg"
+                    className="h-10"
+                    alt="loading"
+                  />
+                )}
+
                 <div data-popper-arrow></div>
               </div>
             </div>

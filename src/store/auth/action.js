@@ -3,7 +3,6 @@ import { startSession } from "../../storage/session";
 import {
   clearAuth,
   setAuth,
-  // setAuth,
   // setError,
   signupFailure,
   signupStart,
@@ -12,50 +11,48 @@ import {
 } from "./slice";
 // import jwtEncode from "jwt-encode";
 
-export const handleLogin =
-  (userInfo) =>
-  async (dispatch) => {
-    // try {
-    //     const response = await fetch("http://localhost:8000/api/auth/login", userInfo);
-    //     const token = response.accessToken;
-    //   // const isAuthenticated = true;
-    //   dispatch(setAuth(token));
-    //   startSession(token);
-    //   // navigate("/");
-    //   window.location.href = "/";
-    //   toast.success("Welcome to ChatMedia!");
-    // } catch (error) {
-    //   console.log("error", error);
-    //   // dispatch(setError({ error: "auth", message: "failed" }));
-    //   console.log("error");
-    // }
-    try {
-      dispatch(startAuth());
-      const response = await fetch("http://localhost:8000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userInfo),
-      });
+export const handleLogin = (userInfo) => async (dispatch) => {
+  // try {
+  //     const response = await fetch("http://localhost:8000/api/auth/login", userInfo);
+  //     const token = response.accessToken;
+  //   // const isAuthenticated = true;
+  //   dispatch(setAuth(token));
+  //   startSession(token);
+  //   // navigate("/");
+  //   window.location.href = "/";
+  //   toast.success("Welcome to ChatMedia!");
+  // } catch (error) {
+  //   console.log("error", error);
+  //   // dispatch(setError({ error: "auth", message: "failed" }));
+  //   console.log("error");
+  // }
+  try {
+    dispatch(startAuth());
+    const response = await fetch("http://localhost:8000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userInfo),
+    });
 
-      if (!response.ok) {
-       toast.error("Login Failed!");
-      }
-
-      const data = await response.json();
-      console.log(data.accessToken);
-      const token = data.accessToken;
-      if (token) {
-        startSession(token);
-        // navigate("/");
-        window.location.href = "/";
-      }
-      dispatch(setAuth({token}))
-    } catch (error) {
-      dispatch(signupFailure(error.message));
+    if (!response.ok) {
+      toast.error("Login Failed!");
     }
-  };
+
+    const data = await response.json();
+    console.log(data.accessToken);
+    const token = data.accessToken;
+    if (token) {
+      startSession(token);
+      // navigate("/");
+      window.location.href = "/";
+    }
+    dispatch(setAuth({ token }));
+  } catch (error) {
+    dispatch(signupFailure(error.message));
+  }
+};
 
 export const logout =
   ({ navigate }) =>
@@ -85,12 +82,13 @@ export const handleRegister =
       console.log(data.user);
       const user = data.user;
       if (user) {
-        startSession(user);
-        // navigate("/");
-        window.location.href = "/";
+        // startSession(user);
+        toast.success("Successfully registered.");
+        navigate("/login");
+        dispatch(signupSuccess());
+      } else {
+        toast.error("Register failure!");
       }
-
-      dispatch(signupSuccess({ user }));
     } catch (error) {
       dispatch(signupFailure(error.message));
     }

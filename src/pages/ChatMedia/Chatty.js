@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TypingText } from "../../components";
+import { OPENAI_API_KEY } from "../../config/openAI";
 import {
   isChatLoading,
   selectIsSelected,
@@ -27,10 +28,6 @@ const ChatComponent = () => {
   const qaRef = useRef(null); // Reference to the QA field
 
   const apiUrl = "https://api.openai.com/v1/chat/completions";
-  const API_KEY =
-    process.env.OPENAI_API_KEY ||
-    "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";
-
   const fetchChatResponse = async (e) => {
     e.preventDefault();
     try {
@@ -38,7 +35,7 @@ const ChatComponent = () => {
       const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
-          Authorization: "Bearer " + API_KEY,
+          Authorization: "Bearer " + OPENAI_API_KEY,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -57,6 +54,7 @@ const ChatComponent = () => {
       });
 
       if (!response.ok) {
+        dispatch(clearChat());
         throw new Error("Network response was not ok");
       }
 
@@ -134,7 +132,7 @@ const ChatComponent = () => {
           <div key={index} className={`mb-2 mt-3`}>
             {message.role === "assistant" ? (
               <div className="bg-blue-500 text-white rounded-lg p-3 w-3/4">
-                <TypingText orgText={message.text}></TypingText>
+                <TypingText orgText={message.text} spd={10}></TypingText>
               </div>
             ) : (
               <div className="flex justify-end">

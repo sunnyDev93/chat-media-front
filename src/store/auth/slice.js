@@ -3,16 +3,18 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { NAME } from "./constants";
 
-const initialState = {};
+const initialState = {
+  user: null,
+};
 
 const authSlice = createSlice({
   name: NAME,
   initialState,
   reducers: {
     startAuth: (state) => {
-      state.isLoading= true;
+      state.isLoading = true;
     },
-    setAuth: (state, {payload}) => {
+    setAuth: (state, { payload }) => {
       state.token = payload.token;
       state.error = null;
       state.isAuthenticated = true;
@@ -21,6 +23,7 @@ const authSlice = createSlice({
     clearAuth: (state) => {
       state.token = null;
       state.isAuthenticated = false;
+      state.user = null;
     },
     setError: (state, { payload }) => {
       state.error = payload;
@@ -29,15 +32,28 @@ const authSlice = createSlice({
     signupStart: (state) => {
       state.isLoading = true;
     },
-    signupSuccess: (state, { payload }) => {
+    signupSuccess: (state) => {
       state.isLoading = false;
-      state.user = payload;
       state.error = null;
-      state.isAuthenticated = true;
     },
     signupFailure: (state, { payload }) => {
       state.isLoading = false;
       state.error = payload;
+    },
+    fetchUserStart: (state) => {
+      state.isLoading = true;
+      state.error = null;
+    },
+    fetchUserSuccess: (state, { payload }) => {
+      state.user = payload;
+      state.isLoading = false;
+    },
+    fetchUserFailure: (state, payload) => {
+      state.error = payload;
+      state.isLoading = false;
+    },
+    updateToken: (state, token) => {
+      state.user.token = token;
     },
   },
 });
@@ -49,6 +65,9 @@ export const {
   signupStart,
   signupSuccess,
   signupFailure,
+  fetchUserStart,
+  fetchUserSuccess,
+  fetchUserFailure,
 } = authSlice.actions;
 
 export default authSlice;

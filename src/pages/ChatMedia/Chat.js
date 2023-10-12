@@ -9,10 +9,6 @@ import {
   TypingIndicator,
 } from "@chatscope/chat-ui-kit-react";
 
-const API_KEY =
-  process.env.OPENAI_API_KEY ||
-  "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";
-
 const Chat = ({ transcript }) => {
   const headerSection = "<div class='text-2xl font-semibold'>Chat</div><br>";
   const [messages, setMessages] = useState([
