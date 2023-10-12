@@ -7,14 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAuthStatus, getToken, selectUser } from "../store/auth/selectors";
 import getUser from "../utils/user/getUser";
 
-const Header = () => {
+const Header = ({ isModalOpen, setModalOpen }) => {
   const menuItems = [
     { link: "/", title: "Home" },
     { link: "/plan", title: "Plan" },
     { link: "/faq", title: "FAQ" },
     { link: "/about", title: "About Us" },
   ];
-
   const [scrolling, setScrolling] = useState(false);
   const token = useSelector(getToken);
   const dispatch = useDispatch();
@@ -36,7 +35,7 @@ const Header = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [dispatch]);
+  }, [dispatch, token]);
 
   const location = useLocation();
   const isLoginRoute = location.pathname.includes("login");
@@ -185,6 +184,7 @@ const Header = () => {
                 data-popover-target="popover-user-profile"
                 type="button"
                 className="rounded-full border-2 border-basic"
+                onClick={() => setModalOpen(true)}
               >
                 <svg
                   width="50"
@@ -285,11 +285,13 @@ const Header = () => {
                       Role: <span className="capitalize">{user?.role}</span>
                     </p>
                     <p className="mb-1 text-sm font-semibold text-white mt-3">
-                      Price:
-                      <span className="text-gray-400 mx-1">€1.49/credit</span>
+                      {user.plan === "Free" && "Price: €1.49/credit"}
+                      {user.plan === "Basic" && "Price: €1.29/credit"}
+                      {user.plan === "Free" && "Price: €1.09/credit"}
+                      {user.plan === "Free" && "Price: €0.99/credit"}
                     </p>
                     <span className="text-gray-400">
-                      1 Credit = 50 Min of audio/video to text transcription.
+                      1 Credit = 30 Min of audio/video to text transcription.
                     </span>
                     {/* <ul className="flex text-sm">
                     <li className="mr-2">
@@ -379,6 +381,9 @@ const Header = () => {
           </ul>
         </div>
       </div>
+      {/* <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
+        <UserProfile />
+      </Modal> */}
     </header>
   );
 };

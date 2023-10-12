@@ -3,10 +3,9 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { startSession } from "../storage/session";
 import { handleRegister } from "../store/auth/action";
 import { isLoadingStatus } from "../store/auth/selectors";
-import { setAuth, signupStart } from "../store/auth/slice";
+import { signupStart } from "../store/auth/slice";
 
 const RegisterForm = () => {
   const { register, handleSubmit } = useForm();

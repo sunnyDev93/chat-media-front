@@ -1,6 +1,3 @@
-import { stripePublicKey } from "../config/stripe";
-import { loadStripe } from "@stripe/stripe-js";
-
 export const makePayment = async (plan, paymentMethodTypes, token) => {
   const body = { product: plan, paymentMethodTypes: paymentMethodTypes };
   const headers = {

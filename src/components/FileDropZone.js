@@ -87,7 +87,7 @@ const FileDropzone = () => {
         }
       }
     },
-    [dispatch]
+    [dispatch, curToken, navigate, uid]
   );
 
   const { getRootProps, getInputProps } = useDropzone({

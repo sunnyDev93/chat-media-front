@@ -60,6 +60,9 @@ export const logout =
     dispatch(clearAuth());
     navigate("/login");
   };
+export const modalLogout = () => async (dispatch) => {
+  dispatch(clearAuth());
+};
 export const handleRegister =
   (userData, { navigate }) =>
   async (dispatch) => {
