@@ -11,3 +11,6 @@ export { default as Register } from "./Auth/Register";
 export { default as ChatMedia } from "./ChatMedia/ChatMedia";
 export { default as PrivateRoute } from "./Auth/PrivateRoute";
 export { default as UserProfile } from "./UserProfile";
+export { default as Success } from "./Payment/Success";
+export { default as Cancel } from "./Payment/Cancel";
+export { default as Faq } from "./Faq/Faq";

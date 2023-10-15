@@ -6,10 +6,12 @@ const TypingText = ({ orgText, className, spd }) => {
 
   useEffect(() => {
     const typingInterval = setInterval(() => {
-      if (text.length < originalText.length) {
-        setText(originalText.slice(0, text.length + 1));
-      } else {
-        clearInterval(typingInterval);
+      if (originalText) {
+        if (text.length < originalText.length) {
+          setText(originalText.slice(0, text.length + 1));
+        } else {
+          clearInterval(typingInterval);
+        }
       }
     }, spd); // Adjust the interval to control typing speed
     return () => clearInterval(typingInterval);

@@ -3,27 +3,32 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Modal } from "./components";
 import { Footer, Header } from "./layout";
 import {
+  Cancel,
   ChatMedia,
   Home,
   Login,
+  Plan,
   PrivateRoute,
   Register,
+  Success,
   UserProfile,
 } from "./pages";
 
 function App() {
   const [isModalOpen, setModalOpen] = useState(false);
-  const className = isModalOpen ? "bg-black blur-sm" : "bg-black";
+  const className = isModalOpen ? " blur-sm" : "";
   return (
     <>
-      <div className={className}>
+      <div className={className} style={{ fontFamily: "Segoe UI" }}>
         <BrowserRouter>
           <Header isModalOpen={isModalOpen} setModalOpen={setModalOpen} />
           <div id="recaptcha-container"></div>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/cancel" element={<Cancel />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/success" element={<Success />} />
             <Route
               path="/chatmedia"
               element={
@@ -32,12 +37,20 @@ function App() {
                 </PrivateRoute>
               }
             />
+            <Route
+              path="/plan"
+              element={
+                <PrivateRoute>
+                  <Plan />
+                </PrivateRoute>
+              }
+            />
           </Routes>
           <Footer />
         </BrowserRouter>
       </div>
       <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
-        <UserProfile />
+        <UserProfile payProcess="success" />
       </Modal>
     </>
   );

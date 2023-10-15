@@ -1,7 +1,28 @@
 import React from "react";
 import { Element } from "react-scroll";
+import { ImageCard } from "../../components";
 
 const WorkFlow = () => {
+  const cardContent = [
+    {
+      imgSrc: "./assets/img/record.png",
+      title: "1. Record",
+      content:
+        "Imagine being in any high school or university lesson or in a professional worksh...Read more",
+    },
+    {
+      imgSrc: "./assets/img/upload.png",
+      title: "2. Upload",
+      content:
+        "Once the event is over, it's time to harness the revolutionary power of ChatMP3...Read more",
+    },
+    {
+      imgSrc: "./assets/img/interact.png",
+      title: "3. Interact",
+      content:
+        "And now, the magic. Not only will you have an accurate transcription, but with ou...Read more",
+    },
+  ];
   return (
     <>
       <Element name="targetSection">
@@ -9,49 +30,17 @@ const WorkFlow = () => {
           <h1 className="text-center p-5 text-white font-bold text-4xl">
             How it works
           </h1>
-          <p className="text-center pb-5 text-white font-normal text-lg mb-5">
-            Chatmp3 makes you a step ahead everyone, thanks to the innovative AI
-            technology
+          <p className="text-center pb-5 text-[#9CA3AF] font-normal text-lg mb-5 w-2/5 flex mx-auto">
+            CHATMP3 allows you to upload files, whether they're audio, video, or
+            text documents, and transforms them into dynamic and interactive
+            written texts that accelerate your learning... Audio IN, Knowledge
+            OUT
           </p>
-          <ol className="items-center w-full space-y-4 sm:flex sm:flex-row sm:space-x-8 sm:space-y-0 mx-auto px-20 sm:px-0 justify-center">
-            <li className="flex items-center text-white space-x-2.5">
-              <span className="flex items-center justify-center w-20 h-20 border border-white rounded-full shrink-0">
-                <img src="./assets/img/record.svg" alt="" />
-              </span>
-              <span>
-                <h3 className="font-medium leading-tight text-lg sm:text-md">
-                  Record
-                </h3>
-                <p className="text-sm">Step details here</p>
-              </span>
-            </li>
-            <li className="flex items-center text-white space-x-2.5">
-              <span className="flex items-center justify-center w-20 h-20 border border-white rounded-full shrink-0 dark:border-gray-400">
-                <img src="./assets/img/upload.svg" alt="" />
-              </span>
-              <span>
-                <h3 className="font-medium leading-tight">Upload</h3>
-                <p className="text-sm">Step details here</p>
-              </span>
-            </li>
-            <li className="flex items-center text-white space-x-2.5">
-              <span className="flex items-center justify-center w-20 h-20 border border-white rounded-full shrink-0 dark:border-gray-400">
-                <img src="./assets/img/ask.svg" alt="" />
-              </span>
-              <span>
-                <h3 className="font-medium leading-tight">Ask to AI</h3>
-                <p className="text-sm">Step details here</p>
-              </span>
-            </li>
-          </ol>
-          <p className="flex mx-auto sm:px-5 sm:py-5 px-0 py-5 text-white font-normal text-lg mt-5 w-2/3 text-center">
-            We are committed to making learning an engaging and accessible
-            experience. Our mission is to provide students in training courses,
-            schools, and universities with a powerful tool to take notes and
-            review lectures in a way that maximizes comprehension and academic
-            excellence. Discover how our innovative platform can make a
-            difference in your education!
-          </p>
+          <div className="flex mx-auto w-2/3 justify-between">
+            {cardContent.map((item, key) => (
+              <ImageCard card={item} key={key} />
+            ))}
+          </div>
         </div>
       </Element>
     </>

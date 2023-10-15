@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { getToken, selectUser } from "../store/auth/selectors";
 import { makePayment } from "../utils/makePayment";
 
-export default function UserProfileCard() {
+export default function UserProfile() {
   const user = useSelector(selectUser);
   const token = useSelector(getToken);
 
@@ -23,7 +23,7 @@ export default function UserProfileCard() {
     }
     const paymentMethodTypes = ["card"];
     const plan = {
-      name: "Charge Credit",
+      name: user.plan,
       price: price,
       productOwner: "Simone Lamanna",
       description: `${price}€/credit   1 Credit = 30 Min of media to transcription.`,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FileDropZone } from "../../components";
 import { Link } from "react-router-dom";
 import Chatty from "./Chatty";
@@ -8,6 +8,7 @@ import TranscriptPanel from "./TranscriptPanel";
 
 const ChatMedia = () => {
   const dispatch = useDispatch();
+  const [lang, setLang] = useState("en-US");
   // const [selectedFile, setSelectedFile] = useState(null);
 
   // const handleFileChange = (e) => {
@@ -65,7 +66,7 @@ const ChatMedia = () => {
                 ChatMedia
               </span>
             </div>
-            <FileDropZone />
+            <FileDropZone lang={lang} setLang={setLang} />
           </div>
           <button
             onClick={() => dispatch(clearTranscript())}
@@ -76,9 +77,30 @@ const ChatMedia = () => {
         </div>
       </div>
       <div className="xl:col-span-3 textSection flex flex-col h-screen">
-        <h2 className="text-black text-2xl font-bold pt-3 pl-5">Transcript</h2>
-        {/* <div className="bg-[#101014] max-h-full m-5"></div> */}
-        <TranscriptPanel />
+        <div className="flex justify-between">
+          <h2 className="text-black text-2xl font-bold pt-3 pl-5">
+            Transcript
+          </h2>
+          {/* <div className="bg-[#101014] max-h-full m-5"></div> */}
+          <div className="flex items-baseline">
+            <label
+              htmlFor="countries"
+              className="block w-full mb-2 text-sm font-medium text-gray-900 mx-1"
+            >
+              Language:
+            </label>
+            <select
+              id="countries"
+              onChange={(e) => setLang(e.target.value)}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option defaultValue={lang}>English</option>
+              <option value="it-IT">Italian</option>
+              <option value="es-ES">Spainish</option>
+            </select>
+          </div>
+        </div>
+        <TranscriptPanel lang={lang} setLang={setLang} />
       </div>
       <div className="xl:col-span-3 qaSection">
         {/* <h2 className="text-black text-2xl font-bold pt-3 pl-5 mb-2">Chat</h2> */}

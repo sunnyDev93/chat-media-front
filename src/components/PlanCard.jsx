@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { selectToken } from "../store/auth/selectors";
 import { makePayment } from "../utils/makePayment";
@@ -9,20 +9,20 @@ const PlanCard = ({
   price,
   text,
   description,
+  serviceTitle,
   service,
   isMobile,
   tokenAmount,
+  selectedPlan,
+  creditPrice,
+  featureTitle,
+  featureContent,
 }) => {
-  const [selectedPlan, setSelectedPlan] = useState("month");
   const token = useSelector(selectToken);
   const popularClass = `${
-    name === "Basic" && !isMobile ? "scale-y-110 scale-x-105" : ""
-  } bg-transparent border-2 border-[#36D45A] rounded-lg`;
-  const handleToggle = () => {
-    // Toggle between 'month' and 'year' plans when the switch is clicked
-    const newPlan = selectedPlan === "month" ? "year" : "month";
-    setSelectedPlan(newPlan);
-  };
+    name === "Advanced" && !isMobile ? "scale-y-100 scale-x-100" : ""
+  }  backdrop-filter border-2 border-[#4E4E52] rounded-lg`;
+  const freeClass = price > 0 ? "line-through text-gray-400" : "text-white";
   const handlePayment = () => {
     const paymentMethodTypes = ["card"];
     if (price > 0) {
@@ -54,7 +54,7 @@ const PlanCard = ({
   return (
     <div className="sm:mx-5 mx-2">
       <div className={popularClass}>
-        {name === "Basic" ? (
+        {name === "Advanced" ? (
           <>
             <svg
               className="w-5 h-5"
@@ -77,32 +77,14 @@ const PlanCard = ({
           ""
         )}
 
-        <div className="w-full max-w-sm p-4 shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-          <h5 className="mb-4 text-xl font-medium text-gray-100 text-center">
-            {name}
-          </h5>
-          {price === 0 ? (
-            ""
-          ) : (
-            <div className="flex justify-center my-5">
-              <label className="relative inline-flex items-center mb-4 cursor-pointer">
-                <input
-                  type="checkbox"
-                  onChange={handleToggle}
-                  className="sr-only peer"
-                />
-                <div className="w-11 h-6 bg-black rounded-full border border-gray-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#36D45A] peer-checked:border-none"></div>
-                <span className="ml-3 text-sm font-medium text-gray-300">
-                  Year Plan
-                </span>
-              </label>
-            </div>
-          )}
+        <div className="w-full max-w-sm p-4 shadow sm:p-8 ">
+          <h5 className="mb-2 text-xl font-medium text-gray-100">{name}</h5>
 
-          <div className="flex items-baseline text-white justify-center">
+          <div className="text-gray-400 mt-1">{text}</div>
+          <div className="flex items-baseline text-white mb-4">
             <span className="text-4xl font-bold tracking-tight">
               {selectedPlan === "month" ? (
-                <div className="flex items-center">
+                <div className="flex items-center ml-auto">
                   {currency}
                   {price}
                 </div>
@@ -110,15 +92,19 @@ const PlanCard = ({
                 <div>
                   <div className="flex items-center">
                     <span className="font-bold text-4xl mr-2 text-gray-400 line-through"></span>
-                    <span className="line-through text-gray-400">
+                    <span className={freeClass}>
                       {currency}
                       {Number(price) * 12}
                     </span>
-                    /
-                    <span>
-                      {currency}
-                      {Number(price) * 10.8}
-                    </span>
+                    {price > 0 && (
+                      <div>
+                        <span>/</span>
+                        <span>
+                          {currency}
+                          {Number(price) * 10.8}
+                        </span>
+                      </div>
+                    )}
                   </div>
                   <div className="flex items-center"></div>
                 </div>
@@ -128,7 +114,32 @@ const PlanCard = ({
               {selectedPlan === "month" ? "/month" : ""}
             </span>
           </div>
-          <div className="text-gray-400 my-3 text-center">{text}</div>
+
+          <button
+            className="relative flex mx-auto items-center p-0.5 mb-8 w-full overflow-hidden text-sm font-medium text-white rounded-full group bg-gradient-to-br from-green-400 to-green-600 group-hover:from-green-400 group-hover:to-blue-600 shadow-[0_3px_20px_rgba(166,_245,_69,_0.7)]"
+            onClick={handlePayment}
+          >
+            <span className="relative px-5 py-2.5 w-full transition-all ease-in duration-75 bg-black rounded-full group-hover:bg-opacity-0">
+              Get Started
+            </span>
+          </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="274"
+            height="2"
+            viewBox="0 0 274 2"
+            fill="none"
+          >
+            <path
+              opacity="0.3"
+              d="M1 1L273 1.00002"
+              stroke="white"
+              strokeLinecap="round"
+            />
+          </svg>
+          <div className="pt-5">
+            <span className="text-white font-bold">{serviceTitle}</span>
+          </div>
           <ul className="space-y-5 my-7">
             {service.map((item, key) => (
               <li className="flex space-x-3 items-center" key={key}>
@@ -141,20 +152,72 @@ const PlanCard = ({
                 >
                   <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
                 </svg>
-                <span className="text-base font-normal leading-tight text-gray-200">
+                <span className="text-sm font-normal leading-tight text-[#9CA3AF]">
                   {item}
                 </span>
               </li>
             ))}
           </ul>
-          <button
-            className="relative flex mx-auto items-center justify-center p-0.5 mb-2 overflow-hidden text-sm font-medium text-white rounded-lg group bg-gradient-to-br from-green-400 to-green-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white"
-            onClick={handlePayment}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="274"
+            height="2"
+            viewBox="0 0 274 2"
+            fill="none"
           >
-            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-black rounded-md group-hover:bg-opacity-0">
-              Choose Plan
-            </span>
-          </button>
+            <path
+              opacity="0.3"
+              d="M1 1L273 1.00002"
+              stroke="white"
+              strokeLinecap="round"
+            />
+          </svg>
+          <div className="extensionSection my-5">
+            <div className="text-white font-bold">Extensions:</div>
+            <div className="text-white font-bold mt-3">
+              Price:{" "}
+              <span className="text-[#9CA3AF] font-normal text-sm">
+                €{creditPrice}/credit
+              </span>
+            </div>
+            <div className="text-white font-bold mt-3">
+              1 Credit{" "}
+              <span className="text-[#9CA3AF] font-normal text-sm">
+                = 50 Min of audio/video to text transcription.
+              </span>
+            </div>
+          </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="274"
+            height="2"
+            viewBox="0 0 274 2"
+            fill="none"
+          >
+            <path
+              opacity="0.3"
+              d="M1 1L273 1.00002"
+              stroke="white"
+              strokeLinecap="round"
+            />
+          </svg>
+          <div className="mt-5 font-bold">
+            <div className="text-white">{featureTitle}</div>
+            <ul className="space-y-5 my-7">
+              {featureContent.map((item, key) => (
+                <li className="flex space-x-3 items-center" key={key}>
+                  <span className="flex items-start text-sm font-normal leading-tight text-white">
+                    <img
+                      src="./assets/img/check.svg"
+                      alt="check"
+                      className="mr-2"
+                    />
+                    {item}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>

@@ -1,29 +1,44 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronUp,
+  faChevronDown,
+} from "@fortawesome/fontawesome-free-solid";
 
-function Collapse({ title, children }) {
-  const [isOpen, setIsOpen] = useState(false);
+const Collapse = ({ open, children, title }) => {
+  const [isOpen, setIsOpen] = useState(open);
 
+  const handleFilterOpening = () => {
+    setIsOpen((prev) => !prev);
+  };
+  const className = isOpen
+    ? "p-3 flex justify-between mx-auto cursor-pointer border border-[#4E4E52]"
+    : "p-3 flex justify-between mx-auto cursor-pointer";
   return (
-    <div className=" flex flex-col center">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`inline-block font-bold p-4 rounded-t-lg px-7 text-white ${
-          isOpen
-            ? "border-b-2 border-[#36D45A] bg-gradient-to-t from-[#36D45A] via-gray-950 to-black"
-            : ""
-        }`}
-      >
-        {title}
-      </button>
-      <div
-        className={`overflow-hidden ${
-          isOpen ? "max-h-screen" : "max-h-0"
-        } transition-max-height duration-700`}
-      >
-        <div className="p-4 text-white">{children}</div>
+    <>
+      <div className="card w-full mb-10">
+        <div className="border border-[#4E4E52] rounded-lg bg-[#FFFFFF0D]">
+          <div className={className} onClick={handleFilterOpening}>
+            <h6 className="font-weight-bold text-white text-center ">
+              {title}
+            </h6>
+            <button type="button" className="btn text-white">
+              {!isOpen ? (
+                <FontAwesomeIcon icon={faChevronDown} />
+              ) : (
+                <FontAwesomeIcon icon={faChevronUp} />
+              )}
+            </button>
+          </div>
+          <div className="border-bottom">
+            <div>
+              {isOpen && <div className="p-3 text-white">{children}</div>}
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
-}
+};
 
 export default Collapse;

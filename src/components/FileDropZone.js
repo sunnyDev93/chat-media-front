@@ -22,7 +22,8 @@ const isAudioOrVideoFile = (file) => {
   return allowedExtensions.includes(fileExtension);
 };
 
-const FileDropzone = () => {
+const FileDropzone = ({ lang, setLang }) => {
+  console.log("file", lang);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(selectUser);
@@ -49,9 +50,11 @@ const FileDropzone = () => {
               const formData = new FormData();
               formData.append("file", file);
               formData.append("uid", uid);
+              formData.append("lang", lang);
 
               // Make an Axios or Fetch POST request to the server to handle the file upload
               try {
+                dispatch(transProcessing());
                 const response = await axios.post(
                   "http://localhost:8000/api/files/upload",
                   formData,
@@ -62,7 +65,6 @@ const FileDropzone = () => {
                     },
                   }
                 );
-                dispatch(transProcessing());
                 console.log("File uploaded:", response);
                 const payload = {
                   transcript: response?.data.transcript,
@@ -77,6 +79,7 @@ const FileDropzone = () => {
                 dispatch(setSelect({ isSelected: 0 }));
                 dispatch(transSuccess());
               } catch (error) {
+                dispatch(transSuccess());
                 console.error("Error uploading file:", error);
               }
             } else {

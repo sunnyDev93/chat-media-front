@@ -7,7 +7,7 @@ import {
   selectTranscript,
 } from "../../store/chatMedia/selectors";
 
-const TranscriptPanel = () => {
+const TranscriptPanel = ({ lang, setLang }) => {
   const transcript = useSelector(selectTranscript);
   const [script, setScript] = useState([]);
   const isSelected = useSelector(selectIsSelected);
@@ -35,10 +35,7 @@ const TranscriptPanel = () => {
           {script?.map(
             (item, index) =>
               isSelected === index && (
-                <div
-                  key={index}
-                  className={`m-5 p-5 rounded-lg max-h-screen bg-gray-400`}
-                >
+                <div key={index} className={`m-5 p-5 rounded-lg bg-gray-400`}>
                   <span className="text-white ">{item.transcript}</span>
                   <TypingText
                     className="text-white"
@@ -49,7 +46,7 @@ const TranscriptPanel = () => {
               )
           )}
           {script.length === 0 && (
-            <div className="text-white text-xl m-5 p-5 rounded-lg max-h-screen bg-gray-400">
+            <div className="text-white text-xl m-5 p-5 rounded-lg bg-gray-400">
               The response will show here
             </div>
           )}

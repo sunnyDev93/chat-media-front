@@ -11,3 +11,5 @@ export { default as Collapse } from "./Collapse";
 export { default as MobileSlider } from "./MobileSlider";
 export { default as ScrollTo } from "./ScrollTo";
 export { default as FileDropZone } from "./FileDropZone";
+export { default as HeroTypingText } from "./HeroTypingText";
+export { default as ImageCard } from "./ImageCard";
