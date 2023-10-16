@@ -1,8 +1,9 @@
 import React from "react";
 
 const ImageCard = ({ card }) => {
+  const cardClass = `w-fit flex flex-col mx-auto bg-[#FFFFFF0D] border border-[#4E4E52] rounded-lg xl:mr-5 my-3 ${card.style}`;
   return (
-    <div className="max-w-sm bg-[#FFFFFF0D] border border-[#4E4E52] rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className={cardClass}>
       <img
         className="rounded-t-lg m-8 flex mx-auto"
         src={card.imgSrc}

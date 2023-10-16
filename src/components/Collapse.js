@@ -19,7 +19,7 @@ const Collapse = ({ open, children, title }) => {
       <div className="card w-full mb-10">
         <div className="border border-[#4E4E52] rounded-lg bg-[#FFFFFF0D]">
           <div className={className} onClick={handleFilterOpening}>
-            <h6 className="font-weight-bold text-white text-center ">
+            <h6 className="font-weight-bold text-white text-center text-sm xl:text-md">
               {title}
             </h6>
             <button type="button" className="btn text-white">
@@ -32,7 +32,11 @@ const Collapse = ({ open, children, title }) => {
           </div>
           <div className="border-bottom">
             <div>
-              {isOpen && <div className="p-3 text-white">{children}</div>}
+              {isOpen && (
+                <div className="p-3 text-white text-sm lg:text-md">
+                  {children}
+                </div>
+              )}
             </div>
           </div>
         </div>

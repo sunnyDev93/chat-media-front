@@ -29,7 +29,7 @@ const WorkTab = () => {
   const lbg = "./assets/img/design/tab.png";
   return (
     <>
-      <div className="hidden md:block relative">
+      <div className=" md:block relative">
         {/* <div className="mb-4 sm:border-none border-b border-gray-200 flex justify-center w-1/2 mx-auto">
           <ul
             className="flex flex-wrap -mb-px text-sm font-medium text-center"
@@ -84,29 +84,31 @@ const WorkTab = () => {
               role="tabpanel"
             >
               <section className="">
-                <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div className="bg-[#FFFFFF0D] border border-[#4E4E52] rounded-lg p-8 md:p-12 relative">
-                      <div className="absolute top-0 h-full left-1/2 scale-[5]">
+                <div className="py-8 px-0 md:px-4 mx-auto max-w-screen-xl lg:py-16">
+                  <div className="grid xl:grid-cols-2 gap-8">
+                    <div className="bg-[#FFFFFF0D] border border-[#4E4E52] rounded-lg p-4 md:p-8 xl:p-12 relative">
+                      <div className="absolute top-0 left-1/2">
                         <img
                           src={lbg}
                           alt="bg"
                           className="flex rounded-full mx-auto"
                         />
                       </div>
-                      <h2 className="text-white text-3xl font-bold mb-5">
+                      <h2 className="text-white text-lg md:text-xl xl:text-3xl font-bold mb-5">
                         Step 1:
-                        <span className="font-normal"> Upload Audio</span>
+                        <span className="font-normal text-lg md:text-xl">
+                          {" "}
+                          Upload Audio
+                        </span>
                       </h2>
                       <div className="flex items-center justify-between my-5">
-                        <div className="flex bg-[#FFFFFF17] rounded-md p-2 w-2/3">
+                        <div className="flex bg-[#FFFFFF17] rounded-md py-2 px-4 md:w-2/3 items-center">
                           <span
                             display="inline-flex"
                             className="Text-sc-15gs1pn-0 iBZcQL"
                           >
                             <svg
-                              width="24"
-                              height="25"
+                              className="h-6 w-6"
                               viewBox="0 0 24 25"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
@@ -145,18 +147,21 @@ const WorkTab = () => {
                               </defs>
                             </svg>
                           </span>
-                          <p className="text-white">
-                            <strong>Cat Walk:</strong> First ever cat walk
-                            witness
+                          <p className="text-white text-sm md:text-md">
+                            <strong>Cat Walk</strong>
+                            <span className="hidden">
+                              {" "}
+                              : First ever cat walk witness
+                            </span>
                           </p>
                         </div>
                         <button
-                          className="inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-[#A6F545] to-[#89D32D] group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white text-white shadow-md shadow-[#16A34A]"
+                          className="mx-1 z-40 inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium rounded-lg group bg-gradient-to-br from-[#A6F545] to-[#89D32D] group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white text-white shadow-md shadow-[#16A34A]"
                           onClick={() => {
                             setScript(text);
                           }}
                         >
-                          <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-black rounded-md group-hover:bg-opacity-0">
+                          <span className="text-sm md:text-md relative px-2 md:px-5 py-2.5 transition-all ease-in duration-75 bg-black rounded-md group-hover:bg-opacity-0">
                             Run Demo
                           </span>
                         </button>
@@ -170,15 +175,15 @@ const WorkTab = () => {
                           Your browser does not support the audio element.
                         </audio>
                       </div>
-                      <p className="text-md font-normal text-gray-400 mb-4">
+                      <p className="text-sm md:text-md font-normal text-gray-400 mb-4">
                         Get conversational intelligence with transcription and
                         understanding on the world's best speech AI platform.
                       </p>
                     </div>
-                    <div className="bg-[#FFFFFF0D] border border-[#4E4E52] rounded-lg p-8 md:p-12">
-                      <h2 className="text-white text-3xl font-bold mb-5">
+                    <div className="bg-[#FFFFFF0D] border border-[#4E4E52] rounded-lg p-4 md:p-8 xl:p-12">
+                      <h2 className="text-white text-lg md:text-xl xl:text-3xl font-bold mb-5">
                         Step 2:{" "}
-                        <span className="text-3xl text-white font-semibold">
+                        <span className="text-lg md:text-xl text-white font-normal">
                           Get the Transcription
                         </span>
                       </h2>
@@ -189,10 +194,10 @@ const WorkTab = () => {
                           <TypingText
                             orgText={script}
                             spd={10}
-                            className="text-white p-5"
+                            className="text-white p-3 xl:p-5"
                           />
                         ) : (
-                          <p className="p-5 text-[#E1E1E5]">
+                          <p className="p-5 text-[#E1E1E5] text-sm md:text-md">
                             The response will show here
                           </p>
                         )}
@@ -291,7 +296,7 @@ const WorkTab = () => {
           </div>
         </div>
       </div>
-      <div className="sm:block md:hidden flex flex-col mx-auto">
+      {/* <div className="sm:block md:hidden flex flex-col mx-auto">
         <Collapse title="Audio Files">
           <p className="text-white">
             This is the content for the first collapsible section.
@@ -301,7 +306,7 @@ const WorkTab = () => {
         <Collapse title="Live Streaming">
           <p>This is the content for the second collapsible section.</p>
         </Collapse>
-      </div>
+      </div> */}
     </>
   );
 };

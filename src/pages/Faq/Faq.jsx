@@ -47,15 +47,15 @@ export default function Faq() {
   return (
     <>
       <div className="flex flex-col mb-16">
-        <h2 className="mb-3 text-4xl font-extrabold tracking-tight text-[#F3F4F6] text-center sm:text-center">
+        <h2 className="mb-3 text-2xl lg:text-4xl font-extrabold tracking-tight text-[#F3F4F6] text-center sm:text-center">
           Your Questions, Answered
         </h2>
-        <p className="text-[#9CA3AF] text-lg mx-2 sm:mx-0 text-center sm:text-center">
+        <p className="text-[#9CA3AF] text-md lg:text-lg mx-2 sm:mx-0 text-center sm:text-center">
           Find out which questions are the most asked
         </p>
       </div>
 
-      <div className="grid grid-cols-2 w-2/3 mx-auto">
+      <div className="xl:grid xl:grid-cols-2 w-3/4 mx-auto">
         <div className="col-span-1 pr-6  max-h-fit">
           {leftColapData.map((item, key) => (
             <Collapse open={false} title={item.title} key={key}>

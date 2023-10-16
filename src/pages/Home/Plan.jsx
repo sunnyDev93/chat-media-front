@@ -109,6 +109,7 @@ const Plan = () => {
         "Custom speech models and noise reduction.",
         "Custom vocabulary and punctuation",
       ],
+      borderStyle: " shadow-[0_3px_20px_rgba(166,_245,_69,_0.7)]",
     },
     {
       name: "Pro",
@@ -142,10 +143,10 @@ const Plan = () => {
   return (
     <div className={className}>
       <div className="flex flex-col mb-16">
-        <h2 className="mb-3 text-4xl font-extrabold tracking-tight text-[#F3F4F6] text-center sm:text-center">
+        <h2 className="mb-3 text-2xl xl:text-4xl font-extrabold tracking-tight text-[#F3F4F6] text-center sm:text-center">
           Choose the plan that fits your needs
         </h2>
-        <p className="text-[#9CA3AF] text-lg mx-2 sm:mx-0 text-center sm:text-center">
+        <p className="text-[#9CA3AF] text-md md:text-lg mx-2 sm:mx-0 text-center sm:text-center">
           ChatMP3.ai is accessible to everyone at unbeatable prices
         </p>
       </div>
@@ -165,7 +166,7 @@ const Plan = () => {
           </span>
         </label>
       </div>
-      <div className="sm:flex mx-auto justify-center px-16 w-10/12 hidden">
+      <div className="2xl:flex mr-10 px-16 w-fit hidden">
         {planData.map((item, index) => (
           <PlanCard
             key={index}
@@ -175,8 +176,12 @@ const Plan = () => {
           />
         ))}
       </div>
-      <div className="sm:hidden block">
-        <MobileSlider planData={planData}></MobileSlider>
+      <div className="2xl:hidden block w-full mx-3">
+        <MobileSlider
+          planData={planData}
+          selectedPlan={selectedPlan}
+          setSelectedPlan={setSelectedPlan}
+        ></MobileSlider>
       </div>
     </div>
   );

@@ -10,9 +10,9 @@ const Footer = () => {
   return (
     <div>
       <footer className="p-4 sm:p-6 bg-black sticky w-full bottom-0 z-50">
-        <div className="max-w-screen-xl mx-auto">
-          <div className="md:flex md:justify-between">
-            <div className="mb-6 md:mb-0 flex flex-col justify-between">
+        <div className="w-full lg:max-w-screen-lg 2xl:max-w-screen-2xl mx-6 2xl:mx-20">
+          <div className="flex justify-between">
+            <div className="mb-6 md:mb-0 flex flex-col justify-between ml-5">
               <Link to="/" className="flex items-center">
                 <img
                   src="./assets/img/footerLogo.png"
@@ -77,7 +77,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="h-[1px] bg-gradient-to-r from-[#89D32D00] via-[#ffffff91] to-[#16A34A00] w-2/3 flex mx-auto mt-14 mb-5"></div>
-          <div className="sm:flex sm:items-center sm:justify-center">
+          <div className="flex items-center justify-center">
             <span className="text-sm  sm:text-center text-gray-400">
               © 2023 ChatMP3.ai powered by
               <a

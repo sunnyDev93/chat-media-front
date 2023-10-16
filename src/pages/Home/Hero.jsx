@@ -7,26 +7,33 @@ import { getAuthStatus } from "../../store/auth/selectors";
 const Hero = () => {
   const isAuthenticated = useSelector(getAuthStatus);
   const className =
-    "bg-gradient-to-r from-[#BEF264] via-[#84CC16] to-[#16A34A] text-5xl font-bold  bg-clip-text text-transparent capitalize";
-  const lbg = "./assets/img/design/lbg.png";
-  const rbg = "./assets/img/design/rbg.png";
+    "bg-gradient-to-r from-[#BEF264] via-[#84CC16] to-[#16A34A] text-3xl lg:text-5xl font-bold  bg-clip-text text-transparent capitalize";
+  const lbg = "./assets/img/design/lbg1.png";
+  const rbg = "./assets/img/design/rbg2.png";
   const textArray = [
     "Artificial Intelligence Meets Education",
     "The Learning Revolution Has Begun",
   ];
   return (
-    <section className={`pb-5 transition-opacity duration-1000 ease-in-out`}>
-      <div className="absolute top-0 w-1/2 h-full">
+    <section
+      className={`pb-5 transition-opacity duration-1000 ease-in-out mb-3`}
+      // style={{
+      //   background: `url(${bg})`,
+      //   backgroundRepeat: "no-repeat",
+      //   backgroundSize: "cover",
+      // }}
+    >
+      <div className="absolute top-0 left-0  w-1/2 h-full z-0">
         <img src={lbg} alt="lbg" />
       </div>
-      <div className="absolute right-0 top-0 w-1/2 h-full">
+      <div className="absolute -top-24 w-1/2 h-full -z-0 right-0">
         <img src={rbg} alt="rbg" />
       </div>
-      <div className="max-w-screen-xl px-4 mx-auto text-center pt-32 sm:pt-40 sm:pb-24 lg:px-12">
-        <div className="h-12 mb-4">
+      <div className="max-w-screen-xl px-4 mx-auto text-center mt-10 pt-16 xl:pt-32 sm:pt-40 sm:pb-24 lg:px-12 z-40">
+        <div className="h-12 mb-6">
           <HeroTypingText textArray={textArray} className={className} />
         </div>
-        <p className="mb-8 text-lg font-normal text-[#F3F4F6] lg:text-xl sm:px-16 xl:px-48 animate-float-up">
+        <p className="mb-8 text-md font-normal text-[#F3F4F6] lg:text-xl sm:px-16 xl:px-48 animate-float-up">
           With Chatmp3.ai, every lesson, in any format, comes to life. Upload
           audio, video, or text documents and let our AI elevate them to
           interactive written texts for an unbeatable learning experience
@@ -35,14 +42,14 @@ const Hero = () => {
           {isAuthenticated ? (
             <Link
               to="/chatmedia"
-              className="mb-3 sm:mb-0 shadow-lg shadow-green-500/50 inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white bg-transparent border border-[#36D45A] rounded-lg hover:font-bold focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+              className="z-40 mb-3 sm:mb-0 shadow-lg shadow-green-500/50 inline-flex items-center justify-center px-5 py-3 text-sm xl:text-base font-medium text-center text-white bg-transparent border border-[#36D45A] rounded-lg hover:font-bold focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
             >
               Get Started
             </Link>
           ) : (
             <Link
               to="/login"
-              className="mb-3 sm:mb-0 shadow-lg shadow-green-500/50 inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white bg-transparent border border-[#36D45A] rounded-lg hover:font-bold focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+              className="z-40 mb-3 sm:mb-0 shadow-lg shadow-green-500/50 inline-flex items-center justify-center px-5 py-3 text-sm xl:text-base font-medium text-center text-white bg-transparent border border-[#36D45A] rounded-lg hover:font-bold focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
             >
               Sign Up Free
             </Link>

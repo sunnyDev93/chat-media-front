@@ -57,7 +57,7 @@ const Form = () => {
         <div className="mb-6">
           <label
             htmlFor="email"
-            className="block mb-2 text-sm font-medium text-white"
+            className="block mb-2 text-sm font-medium text-[#F3F4F6]"
           >
             Email
           </label>
@@ -72,7 +72,7 @@ const Form = () => {
         <div className="mb-6">
           <label
             htmlFor="password"
-            className="block mb-2 text-sm font-medium text-white"
+            className="block mb-2 text-sm font-medium text-[#F3F4F6]"
           >
             Password
           </label>
@@ -84,7 +84,7 @@ const Form = () => {
             required
           />
         </div>
-        <div className="flex items-center mb-6">
+        {/* <div className="flex items-center mb-6">
           <div className="flex items-center h-5">
             <input
               id="remember"
@@ -99,10 +99,10 @@ const Form = () => {
           >
             Remember me
           </label>
-        </div>
+        </div> */}
         <button
           type="submit"
-          className="text-sm justify-center w-full border border-white hover:border-gray-800 md:flex md:mx-auto text-white bg-gray-800 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-gray-400 font-medium rounded-lg px-5 py-2.5 text-center"
+          className="shadow-[0_3px_20px_rgba(166,_245,_69,_0.7)] text-sm justify-center w-full hover:border-gray-800 md:flex md:mx-auto text-white bg-[#FFFFFF0D] hover:bg-basic mt-4 font-medium rounded-full px-5 py-2.5 text-center"
         >
           {isLoading ? (
             <img
@@ -111,7 +111,7 @@ const Form = () => {
               className="h-10"
             />
           ) : (
-            <span>Login with Email</span>
+            <span>Login</span>
           )}
         </button>
       </form>

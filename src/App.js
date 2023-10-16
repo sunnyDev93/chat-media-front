@@ -19,7 +19,13 @@ function App() {
   const className = isModalOpen ? " blur-sm" : "";
   return (
     <>
-      <div className={className} style={{ fontFamily: "Segoe UI" }}>
+      <div
+        className={className}
+        style={{
+          fontFamily: "Segoe UI",
+          backgroundColor: "#FFFFFF0D!important",
+        }}
+      >
         <BrowserRouter>
           <Header isModalOpen={isModalOpen} setModalOpen={setModalOpen} />
           <div id="recaptcha-container"></div>

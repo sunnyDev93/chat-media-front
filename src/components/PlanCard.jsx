@@ -17,11 +17,12 @@ const PlanCard = ({
   creditPrice,
   featureTitle,
   featureContent,
+  borderStyle,
 }) => {
   const token = useSelector(selectToken);
   const popularClass = `${
     name === "Advanced" && !isMobile ? "scale-y-100 scale-x-100" : ""
-  }  backdrop-filter border-2 border-[#4E4E52] rounded-lg`;
+  }  backdrop-filter border-2 border-[#4E4E52] rounded-lg w-fit justity-center flex mx-auto relative mt-5`;
   const freeClass = price > 0 ? "line-through text-gray-400" : "text-white";
   const handlePayment = () => {
     const paymentMethodTypes = ["card"];
@@ -50,25 +51,17 @@ const PlanCard = ({
     } else {
     }
   };
+  const cardStyle = borderStyle
+    ? `${borderStyle} w-full max-w-sm p-4 sm:p-8 relative`
+    : "w-full max-w-sm p-4 sm:p-8 relative";
 
   return (
     <div className="sm:mx-5 mx-2">
       <div className={popularClass}>
         {name === "Advanced" ? (
           <>
-            <svg
-              className="w-5 h-5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 20 16"
-            >
-              <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
-              <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
-            </svg>
-            <span className="sr-only">Notifications</span>
             <div className="absolute inline-flex items-center justify-center text-sm font-bold  rounded-full -top-2 -right-5 dark:border-gray-900">
-              <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+              <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full z-40">
                 Most Popular
               </span>
             </div>
@@ -77,7 +70,17 @@ const PlanCard = ({
           ""
         )}
 
-        <div className="w-full max-w-sm p-4 shadow sm:p-8 ">
+        <div className={cardStyle}>
+          {borderStyle && (
+            <div className="absolute w-1/2 right-0 top-0">
+              <img src="./assets/img/design/plan.png" alt="img" />
+            </div>
+          )}
+          {borderStyle && (
+            <div className="absolute w-1/2 left-0 bottom-0">
+              <img src="./assets/img/design/planl.png" alt="img" />
+            </div>
+          )}
           <h5 className="mb-2 text-xl font-medium text-gray-100">{name}</h5>
 
           <div className="text-gray-400 mt-1">{text}</div>
@@ -201,7 +204,7 @@ const PlanCard = ({
               strokeLinecap="round"
             />
           </svg>
-          <div className="mt-5 font-bold">
+          <div className="mt-5 font-bold relative">
             <div className="text-white">{featureTitle}</div>
             <ul className="space-y-5 my-7">
               {featureContent.map((item, key) => (

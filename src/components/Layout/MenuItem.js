@@ -11,7 +11,7 @@ const MenuItem = ({ link, title }) => {
           location.pathname === link
             ? "text-white font-semibold"
             : "text-white bg-transparent"
-        }  rounded-lg px-4 w-full`}
+        }  rounded-lg px-1 xl:px-4 w-full text-[10px] md:text-lg`}
         aria-current="page"
       >
         {title}

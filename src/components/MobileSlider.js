@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import PlanCard from "./PlanCard";
 
-const MobileSlider = ({ planData }) => {
+const MobileSlider = ({ planData, selectedPlan }) => {
   const isMobile = true;
   const settings = {
     dots: true,
@@ -17,7 +17,12 @@ const MobileSlider = ({ planData }) => {
   return (
     <Slider {...settings}>
       {planData.map((item, index) => (
-        <PlanCard key={index} {...item} isMobile={isMobile} />
+        <PlanCard
+          key={index}
+          {...item}
+          isMobile={isMobile}
+          selectedPlan={selectedPlan}
+        />
       ))}
     </Slider>
   );
