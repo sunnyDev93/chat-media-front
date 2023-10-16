@@ -5,8 +5,10 @@ import { Footer, Header } from "./layout";
 import {
   Cancel,
   ChatMedia,
+  // ChatMedia,
   Home,
   Login,
+  Main,
   Plan,
   PrivateRoute,
   Register,
@@ -37,6 +39,14 @@ function App() {
             <Route path="/success" element={<Success />} />
             <Route
               path="/chatmedia"
+              element={
+                <PrivateRoute>
+                  <Main />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/chatmedia/chat"
               element={
                 <PrivateRoute>
                   <ChatMedia />

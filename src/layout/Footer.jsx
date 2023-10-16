@@ -5,11 +5,12 @@ const Footer = () => {
   const location = useLocation();
   const isLoginRoute = location.pathname.includes("login");
   const isRegisterRoute = location.pathname.includes("register");
+  const isChatMediaRoute = location.pathname.includes("chatmedia");
 
-  if (isLoginRoute || isRegisterRoute) return null;
+  if (isLoginRoute || isRegisterRoute || isChatMediaRoute) return null;
   return (
     <div>
-      <footer className="p-4 sm:p-6 bg-black sticky w-full bottom-0 z-50">
+      <footer className="p-4 sm:p-6 bg-[#FFFFFF0D] sticky my-auto w-full bottom-0 z-50">
         <div className="w-full lg:max-w-screen-lg 2xl:max-w-screen-2xl mx-6 2xl:mx-20">
           <div className="flex justify-between">
             <div className="mb-6 md:mb-0 flex flex-col justify-between ml-5">

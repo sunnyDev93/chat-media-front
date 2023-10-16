@@ -1,7 +1,7 @@
 import React from "react";
 
 const ImageCard = ({ card }) => {
-  const cardClass = `w-fit flex flex-col mx-auto bg-[#FFFFFF0D] border border-[#4E4E52] rounded-lg xl:mr-5 my-3 ${card.style}`;
+  const cardClass = `w-fit flex flex-col mx-auto bg-[#FFFFFF0D] border border-[#4E4E52] rounded-lg xl:mr-6 my-3 shadow-lg hover:shadow-basic hover:${card.style}`;
   return (
     <div className={cardClass}>
       <img
@@ -13,7 +13,9 @@ const ImageCard = ({ card }) => {
         <h5 className="mb-2 text-2xl font-bold text-center text-[#F3F4F6]">
           {card.title}
         </h5>
-        <p className="mb-3 font-normal text-[#9CA3AF]">{card.content}</p>
+        <p className="mb-3 font-normal text-[#9CA3AF] text-center">
+          {card.content}
+        </p>
       </div>
     </div>
   );

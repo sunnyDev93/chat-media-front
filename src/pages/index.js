@@ -14,3 +14,8 @@ export { default as UserProfile } from "./UserProfile";
 export { default as Success } from "./Payment/Success";
 export { default as Cancel } from "./Payment/Cancel";
 export { default as Faq } from "./Faq/Faq";
+export { default as Main } from "./ChatMedia/Main";
+export { default as ChatHero } from "./ChatMedia/ChatHero";
+export { default as ChatDropzone } from "./ChatMedia/ChatDropzone";
+export { default as Feed } from "./ChatMedia/Feed";
+export { default as Letter } from "./Home/Letter";

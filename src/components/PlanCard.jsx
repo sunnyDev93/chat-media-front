@@ -22,7 +22,7 @@ const PlanCard = ({
   const token = useSelector(selectToken);
   const popularClass = `${
     name === "Advanced" && !isMobile ? "scale-y-100 scale-x-100" : ""
-  }  backdrop-filter border-2 border-[#4E4E52] rounded-lg w-fit justity-center flex mx-auto relative mt-5`;
+  }  backdrop-filter border-2 border-[#4E4E52] rounded-3xl w-fit justity-center flex mx-auto relative mt-5`;
   const freeClass = price > 0 ? "line-through text-gray-400" : "text-white";
   const handlePayment = () => {
     const paymentMethodTypes = ["card"];

@@ -16,7 +16,7 @@ const Hero = () => {
   ];
   return (
     <section
-      className={`pb-5 transition-opacity duration-1000 ease-in-out mb-3`}
+      className={`pb-5 transition-opacity duration-1000 ease-in-out mb-3 h-screen`}
       // style={{
       //   background: `url(${bg})`,
       //   backgroundRepeat: "no-repeat",
@@ -29,11 +29,11 @@ const Hero = () => {
       <div className="absolute -top-24 w-1/2 h-full -z-0 right-0">
         <img src={rbg} alt="rbg" />
       </div>
-      <div className="max-w-screen-xl px-4 mx-auto text-center mt-10 pt-16 xl:pt-32 sm:pt-40 sm:pb-24 lg:px-12 z-40">
-        <div className="h-12 mb-6">
+      <div className="max-w-screen-xl px-4 mx-auto text-center mt-32 pt-16 xl:pt-32 sm:pt-40 sm:pb-24 lg:px-12 z-40">
+        <div className="h-12 mb-10">
           <HeroTypingText textArray={textArray} className={className} />
         </div>
-        <p className="mb-8 text-md font-normal text-[#F3F4F6] lg:text-xl sm:px-16 xl:px-48 animate-float-up">
+        <p className="mb-16 text-md font-normal text-[#F3F4F6] lg:text-lg sm:px-16 xl:px-48 animate-float-up">
           With Chatmp3.ai, every lesson, in any format, comes to life. Upload
           audio, video, or text documents and let our AI elevate them to
           interactive written texts for an unbeatable learning experience

@@ -9,52 +9,10 @@ import TranscriptPanel from "./TranscriptPanel";
 const ChatMedia = () => {
   const dispatch = useDispatch();
   const [lang, setLang] = useState("en-US");
-  // const [selectedFile, setSelectedFile] = useState(null);
-
-  // const handleFileChange = (e) => {
-  //   setSelectedFile(e.target.files[0]);
-  // };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (selectedFile) {
-  //     const formData = new FormData();
-  //     formData.append("file", selectedFile);
-
-  //     // Make an Axios or Fetch POST request to the server to handle the file upload
-  //     try {
-  //       const response = await axios.post(
-  //         "http://localhost:8000/api/files/upload",
-  //         formData,
-  //         {
-  //           headers: {
-  //             "Content-Type": "multipart/form-data",
-  //           },
-  //         }
-  //       );
-
-  //       console.log("File uploaded:", response);
-  //     } catch (error) {
-  //       console.error("Error uploading file:", error);
-  //     }
-  //   }
-  // };
 
   return (
     <div className="xl:grid xl:grid-cols-7 bg-white">
-      {/* <div className="flex justify-between xl:hidden">
-        <div className="mt-3">
-          <Link to="/" className="text-gray-400 text-2xl pt-3 px-3 mt-3">
-            Home
-          </Link>
-          <span className="text-gray-400 mx-1 text-2xl">/</span>
-          <span className="text-basic font-bold ml-2 text-2xl">ChatMedia</span>
-        </div>
-        <div className=""></div>
-      </div> */}
-
       <div className="xl:col-span-1 xl:h-screen mt-3 xl:mt-0 lg:hidden xl:block bg-black">
-        {/* <FileUpload /> */}
         <div className="flex flex-col h-screen">
           <div className="overflow-y-auto flex-grow mt-3">
             <div className="mt-3 mb-2">

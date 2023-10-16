@@ -103,28 +103,28 @@ const Features = () => {
             <figure className="relative max-w-sm transition-all duration-300 cursor-pointer filter">
               <img
                 className="w-full rounded-lg"
-                src="./assets/img/fea1.png"
+                src="./assets/img/design/fea1.png"
                 alt="office content 1"
               />
             </figure>
             <figure className="relative max-w-sm transition-all duration-300 cursor-pointer filter">
               <img
                 className="w-full rounded-lg"
-                src="./assets/img/fea2.png"
+                src="./assets/img/design/fea2.png"
                 alt="office content 1"
               />
             </figure>
             <figure className="relative max-w-sm transition-all duration-300 cursor-pointer filter">
               <img
                 className="w-full rounded-lg"
-                src="./assets/img/fea2.png"
+                src="./assets/img/design/fea3.png"
                 alt="office content 1"
               />
             </figure>
             <figure className="relative max-w-sm transition-all duration-300 cursor-pointer filter">
               <img
                 className="w-full rounded-lg mt-10"
-                src="./assets/img/fea1.png"
+                src="./assets/img/design/fea4.png"
                 alt="office content 1"
               />
             </figure>
