@@ -5,7 +5,7 @@ import ChatFooter from "./ChatFooter";
 import { useLanguage } from "../../utils/LanguageContext";
 import { translations } from "../../utils/translations";
 const Main = () => {
-  const [lang] = useState("en-US");
+  const [lang, setLang] = useState("en-US");
   const { language } = useLanguage();
   const cardContent = translations[language]?.quesCardContent;
   const [showMode, setShowMode] = useState(true);
