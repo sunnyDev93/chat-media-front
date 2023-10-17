@@ -59,8 +59,8 @@ const RegisterForm = () => {
           <input
             id="email"
             {...register("email")}
-            className="bg-[#FFFFFF0D] border border-[#4E4E52] text-[#4E4E52] text-sm rounded-lg focus:border focus:border-[#4E4E52] block w-full p-2.5"
-            placeholder="name@policyWeb.com"
+            type="email"
+            className="bg-[#FFFFFF0D] border border-[#4E4E52] text-[#4E4E52] text-sm rounded-full focus:ring-[#FFFFFF2D] focus:border focus:border-[#4E4E52] block w-full p-2.5"
             required
           />
         </div>
@@ -75,7 +75,7 @@ const RegisterForm = () => {
             type="password"
             {...register("password")}
             id="password"
-            className="bg-[#FFFFFF0D] border-[#4E4E52] text-[#4E4E52] text-sm rounded-lg focus:ring-[#4E4E52] focus:border-[#4E4E52] block w-full p-2.5"
+            className="bg-[#FFFFFF0D] border-[#4E4E52] text-[#4E4E52] text-sm rounded-full focus:ring-[#4E4E52] focus:border-[#4E4E52] block w-full p-2.5"
             required
           />
         </div>
@@ -92,7 +92,7 @@ const RegisterForm = () => {
             {...register("confirmPwd")}
             className={`${
               error && "border-2 border-red-500"
-            } bg-[#FFFFFF0D] border-[#4E4E52] text-[#4E4E52] text-sm rounded-lg focus:ring-[#4E4E52] focus:border-[#4E4E52] block w-full p-2.5`}
+            } bg-[#FFFFFF0D] border-[#4E4E52] text-[#4E4E52] text-sm rounded-full focus:ring-[#4E4E52] focus:border-[#4E4E52] block w-full p-2.5`}
             required
           />
           {error && (

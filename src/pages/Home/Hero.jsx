@@ -3,17 +3,17 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { HeroTypingText, ScrollTo } from "../../components";
 import { getAuthStatus } from "../../store/auth/selectors";
+import { useLanguage } from "../../utils/LanguageContext";
+import { translations } from "../../utils/translations";
 
 const Hero = () => {
+  const { language } = useLanguage();
   const isAuthenticated = useSelector(getAuthStatus);
   const className =
     "bg-gradient-to-r from-[#BEF264] via-[#84CC16] to-[#16A34A] text-3xl lg:text-5xl font-bold  bg-clip-text text-transparent capitalize";
   const lbg = "./assets/img/design/lbg1.png";
   const rbg = "./assets/img/design/rbg2.png";
-  const textArray = [
-    "Artificial Intelligence Meets Education",
-    "The Learning Revolution Has Begun",
-  ];
+  const textArray = translations[language]?.textArray;
   return (
     <section
       className={`pb-5 transition-opacity duration-1000 ease-in-out mb-3 h-screen`}
@@ -31,12 +31,12 @@ const Hero = () => {
       </div>
       <div className="max-w-screen-xl px-4 mx-auto text-center mt-32 pt-16 xl:pt-32 sm:pt-40 sm:pb-24 lg:px-12 z-40">
         <div className="h-12 mb-10">
-          <HeroTypingText textArray={textArray} className={className} />
+          {textArray && (
+            <HeroTypingText textArray={textArray} className={className} />
+          )}
         </div>
         <p className="mb-16 text-md font-normal text-[#F3F4F6] lg:text-lg sm:px-16 xl:px-48 animate-float-up">
-          With Chatmp3.ai, every lesson, in any format, comes to life. Upload
-          audio, video, or text documents and let our AI elevate them to
-          interactive written texts for an unbeatable learning experience
+          {translations[language]?.heroTxt}
         </p>
         <div className="flex flex-col items-center mb-8 space-y-4 lg:mb-16 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
           {isAuthenticated ? (
@@ -44,14 +44,14 @@ const Hero = () => {
               to="/chatmedia"
               className="z-40 mb-3 sm:mb-0 shadow-lg shadow-green-500/50 inline-flex items-center justify-center px-5 py-3 text-sm xl:text-base font-medium text-center text-white bg-transparent border border-[#36D45A] rounded-lg hover:font-bold focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
             >
-              Get Started
+              {translations[language]?.heroBtnStarted}
             </Link>
           ) : (
             <Link
               to="/login"
               className="z-40 mb-3 sm:mb-0 shadow-lg shadow-green-500/50 inline-flex items-center justify-center px-5 py-3 text-sm xl:text-base font-medium text-center text-white bg-transparent border border-[#36D45A] rounded-lg hover:font-bold focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
             >
-              Sign Up Free
+              {translations[language]?.heroBtnSignUpFree}
             </Link>
           )}
           <ScrollTo />
@@ -142,7 +142,9 @@ const Hero = () => {
               </clipPath>
             </defs>
           </svg>
-          <span className="text-white mx-2">Based on 154K+ review</span>
+          <span className="text-white mx-2">
+            {translations[language]?.heroReviewTxt}
+          </span>
         </div>
       </div>
     </section>

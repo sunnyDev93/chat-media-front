@@ -1,7 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectToken } from "../store/auth/selectors";
+import { useLanguage } from "../utils/LanguageContext";
 import { makePayment } from "../utils/makePayment";
+import { translations } from "../utils/translations";
 
 const PlanCard = ({
   name,
@@ -19,9 +21,12 @@ const PlanCard = ({
   featureContent,
   borderStyle,
 }) => {
+  const { language } = useLanguage();
   const token = useSelector(selectToken);
   const popularClass = `${
-    name === "Advanced" && !isMobile ? "scale-y-100 scale-x-100" : ""
+    name === translations[language]?.advancedName && !isMobile
+      ? "scale-y-100 scale-x-100"
+      : ""
   }  backdrop-filter border-2 border-[#4E4E52] rounded-3xl w-fit justity-center flex mx-auto relative mt-5`;
   const freeClass = price > 0 ? "line-through text-gray-400" : "text-white";
   const handlePayment = () => {
@@ -58,11 +63,11 @@ const PlanCard = ({
   return (
     <div className="sm:mx-5 mx-2">
       <div className={popularClass}>
-        {name === "Advanced" ? (
+        {name === translations[language]?.advancedName ? (
           <>
             <div className="absolute inline-flex items-center justify-center text-sm font-bold  rounded-full -top-2 -right-5 dark:border-gray-900">
               <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full z-40">
-                Most Popular
+                {translations[language]?.popular}
               </span>
             </div>
           </>
@@ -123,7 +128,7 @@ const PlanCard = ({
             onClick={handlePayment}
           >
             <span className="relative px-5 py-2.5 w-full transition-all ease-in duration-75 bg-black rounded-full group-hover:bg-opacity-0">
-              Get Started
+              {translations[language]?.heroBtnStarted}
             </span>
           </button>
           <svg
@@ -144,7 +149,7 @@ const PlanCard = ({
             <span className="text-white font-bold">{serviceTitle}</span>
           </div>
           <ul className="space-y-5 my-7">
-            {service.map((item, key) => (
+            {service?.map((item, key) => (
               <li className="flex space-x-3 items-center" key={key}>
                 <svg
                   className="flex-shrink-0 w-4 h-4 text-[#36D45A] "
@@ -176,17 +181,19 @@ const PlanCard = ({
             />
           </svg>
           <div className="extensionSection my-5">
-            <div className="text-white font-bold">Extensions:</div>
+            <div className="text-white font-bold">
+              {translations[language]?.tab2Desc}
+            </div>
             <div className="text-white font-bold mt-3">
-              Price:{" "}
+              {translations[language]?.price}{" "}
               <span className="text-[#9CA3AF] font-normal text-sm">
-                €{creditPrice}/credit
+                €{creditPrice}/{translations[language]?.credit}
               </span>
             </div>
             <div className="text-white font-bold mt-3">
-              1 Credit{" "}
+              1 {translations[language]?.credit}{" "}
               <span className="text-[#9CA3AF] font-normal text-sm">
-                = 50 Min of audio/video to text transcription.
+                = 50{translations[language]?.creditSup}
               </span>
             </div>
           </div>
@@ -207,7 +214,7 @@ const PlanCard = ({
           <div className="mt-5 font-bold relative">
             <div className="text-white">{featureTitle}</div>
             <ul className="space-y-5 my-7">
-              {featureContent.map((item, key) => (
+              {featureContent?.map((item, key) => (
                 <li className="flex space-x-3 items-center" key={key}>
                   <span className="flex items-start text-sm font-normal leading-tight text-white">
                     <img

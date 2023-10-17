@@ -41,11 +41,10 @@ export const handleLogin = (userInfo) => async (dispatch) => {
     }
 
     const data = await response.json();
-    console.log(data.accessToken);
+    console.log("access", data.accessToken);
     const token = data.accessToken;
     if (token) {
       startSession(token);
-      // navigate("/");
       window.location.href = "/";
     }
     dispatch(setAuth({ token }));
@@ -87,8 +86,8 @@ export const handleRegister =
       if (user) {
         // startSession(user);
         toast.success("Successfully registered.");
-        navigate("/login");
         dispatch(signupSuccess());
+        navigate("/login");
       } else {
         toast.error("Register failure!");
       }

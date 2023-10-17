@@ -25,13 +25,20 @@ const TranscriptPanel = ({ lang, setLang }) => {
         </div>
       ) : (
         <div
-          className=" m-5 rounded-lg overflow-y-auto flex-grow mt-3"
+          className=" m-5 rounded-lg overflow-y-auto flex-grow mt-3 bg-black"
           ref={chatRef}
         >
           {transcript?.map(
             (item, index) =>
               isSelected === index && (
-                <div key={index} className={`m-5 p-5 rounded-lg bg-gray-400`}>
+                <div
+                  key={index}
+                  className={`m-5 p-5 rounded-lg bg-gray-400 bg-gradient-to-tl from-[#FFFFFF2E] to-[#FFFFFF00] h-screen`}
+                  style={{
+                    background:
+                      "linear-gradient(139deg, rgba(255, 255, 255, 0.18) 23.28%, rgba(255, 255, 255, 0.00) 76.79%)",
+                  }}
+                >
                   {/* <span className="text-white ">{item.transcript}</span> */}
                   <TypingText
                     className="text-white"
@@ -42,7 +49,13 @@ const TranscriptPanel = ({ lang, setLang }) => {
               )
           )}
           {transcript.length === 0 && (
-            <div className="text-white text-xl m-5 p-5 rounded-lg bg-gray-400">
+            <div
+              className="text-white text-xl m-5 p-5 rounded-lg h-[800px]"
+              style={{
+                background:
+                  "linear-gradient(139deg, rgba(255, 255, 255, 0.18) 23.28%, rgba(255, 255, 255, 0.00) 76.79%)",
+              }}
+            >
               The response will show here
             </div>
           )}

@@ -10,6 +10,8 @@ import {
   selectTranscript,
 } from "../../store/chatMedia/selectors";
 import { clearChat, setChat } from "../../store/chatMedia/slice";
+import { useLanguage } from "../../utils/LanguageContext";
+import { translations } from "../../utils/translations";
 
 const ChatComponent = () => {
   const [chatHistory, setChatHistory] = useState([]);
@@ -19,6 +21,7 @@ const ChatComponent = () => {
   const isSelected = useSelector(selectIsSelected);
   const isLoading = useSelector(isChatLoading);
   const dispatch = useDispatch();
+  const { language } = useLanguage();
   useEffect(() => {
     setScript(transcript);
   }, [transcript]);
@@ -127,11 +130,13 @@ const ChatComponent = () => {
   return (
     <div className="flex flex-col h-screen">
       <div className="overflow-y-auto flex-grow mt-3" ref={qaRef}>
-        <span className="font-bold pt-5 text-2xl px-5">Chat</span>
+        <span className="font-bold pt-5 text-2xl px-5 text-white">
+          {translations[language]?.chat}
+        </span>
         {chatHistory.map((message, index) => (
           <div key={index} className={`mb-2 mt-3`}>
             {message.role === "assistant" ? (
-              <div className="bg-blue-500 text-white rounded-lg p-3 w-3/4">
+              <div className="bg-[#FFFFFF0D]  text-white rounded-lg p-3 w-3/4">
                 <TypingText orgText={message.text} spd={10}></TypingText>
               </div>
             ) : (
@@ -156,27 +161,32 @@ const ChatComponent = () => {
           type="text"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          className="rounded-none rounded-l-lg bg-gray-50 border text-gray-900 focus:ring-gray-300 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Ask any question..."
+          className="rounded-none rounded-l-lg bg-[#FFFFFF0D] border border-[#FFFFFF34] text-gray-900 focus:ring-gray-300 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder={translations[language].chatPlaceHolder}
         />
         <button
-          className="inline-flex items-center px-3 text-sm text-gray-900 bg-blue-600 border border-l-0 border-blue-600 rounded-r-md"
+          className="inline-flex items-center px-3 text-sm text-gray-900 bg-[#ffffff0d] border border-l-0 border-[#ffffff0d] rounded-r-md"
           type="submit"
         >
-          <span role="img" aria-label="send" className="anticon anticon-send">
+          <span role="img" aria-label="send" className="anticon anticon-send ">
             <svg
-              viewBox="64 64 896 896"
-              focusable="false"
-              data-icon="send"
-              width="1em"
-              height="1em"
-              fill="white"
-              aria-hidden="true"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
             >
+              <g clipath="url(#clip0_318_55)">
+                <path
+                  d="M0.328006 22.9047C0.130795 23.8109 0.826577 24.1946 1.47218 23.9051L23.292 12.7167H23.2941C23.5544 12.5699 23.7055 12.3054 23.7055 12.0003C23.7055 11.6949 23.5544 11.4302 23.2941 11.2835H23.292L1.47218 0.0949195C0.826577 -0.194579 0.130795 0.189165 0.328006 1.09544C0.341351 1.15683 1.63131 6.90286 2.33267 10.0279L13.723 12.0002L2.33267 13.9722C1.63131 17.0971 0.341291 22.8433 0.328006 22.9047Z"
+                  fill="#16A34A"
+                />
+              </g>
               <defs>
-                <style></style>
+                <clipPath id="clip0_318_55">
+                  <rect width="24" height="24" fill="white" />
+                </clipPath>
               </defs>
-              <path d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2a15.99 15.99 0 00-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"></path>
             </svg>
           </span>
         </button>

@@ -2,11 +2,14 @@ import { Card } from "flowbite-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { getToken, selectUser } from "../store/auth/selectors";
+import { useLanguage } from "../utils/LanguageContext";
 import { makePayment } from "../utils/makePayment";
+import { translations } from "../utils/translations";
 
 export default function UserProfile() {
   const user = useSelector(selectUser);
   const token = useSelector(getToken);
+  const { language } = useLanguage();
 
   const [creditCnt, setCreditCnt] = useState(1);
 
@@ -37,24 +40,31 @@ export default function UserProfile() {
       <div className="flex justify-end px-4 pt-4 z-50 bg-white blur-0"></div>
       <div className="flex flex-col items-center pb-10">
         <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-          Current Plan : {user.plan}
+          {translations[language].userPlanTtl} : {user.plan}
         </h5>
-        <span className="text-sm text-gray-500 dark:text-gray-400">
-          Token: {user.token}
+        <span className="text-sm text-gray-500 mt-2">
+          {translations[language].token}: {user.token}
         </span>
-        <span className="text-sm text-gray-500 dark:text-gray-400">
-          Role: {user.role}
+        <span className="text-sm text-gray-500 mt-2">
+          {translations[language].role}: {user.role}
         </span>
-        <span className="text-sm text-gray-500 dark:text-gray-400">
-          Charge: {user.plan === "Free" && "Price: €1.49/credit"}
-          {user.plan === "Basic" && "Price: €1.29/credit"}
-          {user.plan === "Advanced" && "Price: €1.09/credit"}
-          {user.plan === "Pro" && "Price: €0.99/credit"}
+        <span className="text-sm text-gray-500 mt-2">
+          {user.plan === translations[language].freeName &&
+            "Price: €1.49/credit"}
+          {user.plan === translations[language].basicName &&
+            "Price: €1.29/credit"}
+          {user.plan === translations[language].advancedName &&
+            "Price: €1.09/credit"}
+          {user.plan === translations[language].proName &&
+            translations[language].price +
+              ": €0.99/" +
+              translations[language].credit}
         </span>
-        <span className="text-sm text-gray-500 dark:text-gray-400">
-          1 Credit = 30 Min of media to transcription.
+        <span className="text-sm text-gray-500 mt-2">
+          1 {translations[language].credit} = 30{" "}
+          {translations[language].creditSup}.
         </span>
-        <div className="mt-4 flex space-x-3 lg:mt-6">
+        <div className="mt-3 flex space-x-3 lg:mt-6">
           <div className="flex">
             <input
               type="number"
@@ -68,7 +78,7 @@ export default function UserProfile() {
             className="inline-flex items-center rounded-lg bg-cyan-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-cyan-800"
             onClick={handleChargeCredit}
           >
-            <p>Charge</p>
+            <p>{translations[language].charge}</p>
           </button>
           {/* <button
             className="inline-flex items-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-700"

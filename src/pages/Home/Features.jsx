@@ -1,6 +1,9 @@
 import React from "react";
+import { useLanguage } from "../../utils/LanguageContext";
+import { translations } from "../../utils/translations";
 
 const Features = () => {
+  const { language } = useLanguage();
   return (
     <div>
       <section className="mt-10">
@@ -9,10 +12,10 @@ const Features = () => {
         </div>
         <div className="flex flex-col">
           <h2 className="mb-3 text-2xl xl:text-4xl font-extrabold tracking-tight text-[#F3F4F6] text-center sm:text-center">
-            Why Choosing ChatMP3.ai ?
+            {translations[language]?.featureTtl}
           </h2>
           <p className="text-[#9CA3AF] text-md xl:text-lg mx-2 sm:mx-0 text-center sm:text-center">
-            Elevate your Learning with the Power of Artificial Intelligence
+            {translations[language]?.featureTxt}
           </p>
         </div>
         <div className="items-center max-w-screen-xl gap-16 px-4 mx-auto lg:grid lg:grid-cols-2 mt-10">
@@ -37,11 +40,10 @@ const Features = () => {
                   />
                   <span className="grow ml-6">
                     <span className="block text-xl font-semibold text-gray-200">
-                      Audio/Video to Text in a Flash
+                      {translations[language]?.featureCardTtl1}
                     </span>
                     <span className="block mt-1 text-sm text-white">
-                      Transform your audio or video recordings into written text
-                      in just a few seconds
+                      {translations[language]?.featureCardTxt1}
                     </span>
                   </span>
                 </span>
@@ -58,12 +60,10 @@ const Features = () => {
                   />
                   <span className="grow ml-6">
                     <span className="block text-xl font-semibold text-gray-200">
-                      Intuitive and Secure Interface
+                      {translations[language]?.featureCardTtl2}
                     </span>
                     <span className="block mt-1 text-sm text-white">
-                      A user-friendly interface that's private and safeguarded
-                      with top tier encryption, ensuring the utmost security for
-                      your data
+                      {translations[language]?.featureCardTxt2}
                     </span>
                   </span>
                 </span>
@@ -80,12 +80,10 @@ const Features = () => {
                   />
                   <span className="grow ml-6">
                     <span className="block text-xl font-semibold text-gray-200">
-                      Your Virtual AI Professor
+                      {translations[language]?.featureCardTtl3}
                     </span>
                     <span className="block mt-1 text-sm text-white">
-                      Do You have questions about the lecture content? Just ask
-                      anything! Our virtual professor will provide you with
-                      instant answers.
+                      {translations[language]?.featureCardTxt3}
                     </span>
                   </span>
                 </span>

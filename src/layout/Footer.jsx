@@ -1,7 +1,10 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useLanguage } from "../utils/LanguageContext";
+import { translations } from "../utils/translations";
 
 const Footer = () => {
+  const { language } = useLanguage();
   const location = useLocation();
   const isLoginRoute = location.pathname.includes("login");
   const isRegisterRoute = location.pathname.includes("register");
@@ -61,16 +64,18 @@ const Footer = () => {
             </div>
             <div className="gap-8 sm:gap-6 px-5 mt-5">
               <div>
-                <h2 className="mb-4 text-sm font-semibold text-white">Legal</h2>
+                <h2 className="mb-4 text-sm font-semibold text-white">
+                  {translations[language]?.footerLegal}
+                </h2>
                 <ul className="text-[#9CA3AF]">
                   <li className="mb-4">
                     <Link to="/" className="hover:underline text-sm md:text-md">
-                      Privacy Policy
+                      {translations[language]?.footerPrv}
                     </Link>
                   </li>
                   <li>
                     <Link to="/" className="hover:underline text-sm md:text-md">
-                      Terms &amp; Conditions
+                      {translations[language]?.footerTerm}
                     </Link>
                   </li>
                 </ul>
@@ -80,7 +85,7 @@ const Footer = () => {
           <div className="h-[1px] bg-gradient-to-r from-[#89D32D00] via-[#ffffff91] to-[#16A34A00] w-2/3 flex mx-auto mt-14 mb-5"></div>
           <div className="flex items-center justify-center">
             <span className="text-sm  sm:text-center text-gray-400">
-              © 2023 ChatMP3.ai powered by
+              © 2023 ChatMP3.ai {translations[language]?.powered}
               <a
                 href="mailto:chatmp3.ai@gmail.com"
                 className="underline ml-1 text-white font-semibold"

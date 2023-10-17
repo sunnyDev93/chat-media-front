@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../../utils/LanguageContext";
+import { translations } from "../../utils/translations";
 
 const ChatFooter = () => {
+  const { language } = useLanguage();
   return (
     <div>
       <div className="flex justify-center">
@@ -50,7 +53,7 @@ const ChatFooter = () => {
           to="/"
           className="hover:underline text-sm md:text-md text-[#9CA3AF] mr-5"
         >
-          Privacy Policy
+          {translations[language]?.footerPrv}
         </Link>
         <img
           src="./assets/img/design/line.png"
@@ -71,7 +74,7 @@ const ChatFooter = () => {
           to="/"
           className="hover:underline text-sm md:text-md text-[#9CA3AF]"
         >
-          Terms &amp; Conditions
+          {translations[language]?.footerTerm}
         </Link>
       </div>
     </div>

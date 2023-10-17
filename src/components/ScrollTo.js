@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-scroll";
+import { useLanguage } from "../utils/LanguageContext";
+import { translations } from "../utils/translations";
 
 const ScrollTo = () => {
+  const { language } = useLanguage();
   return (
     <div className="z-40">
       <Link
@@ -10,7 +13,7 @@ const ScrollTo = () => {
         smooth="true"
         duration={500}
       >
-        How it work
+        {translations[language]?.howWork}
       </Link>
     </div>
   );

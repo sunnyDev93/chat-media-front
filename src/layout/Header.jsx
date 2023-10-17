@@ -6,13 +6,17 @@ import { logout } from "../store/auth/action";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuthStatus, getToken, selectUser } from "../store/auth/selectors";
 import getUser from "../utils/user/getUser";
+import { useLanguage } from "../utils/LanguageContext";
+import { translations } from "../utils/translations";
 
 const Header = ({ isModalOpen, setModalOpen }) => {
+  const { language, switchLanguage } = useLanguage();
+  console.log(language);
   const menuItems = [
-    { link: "/", title: "Home" },
-    { link: "/plan", title: "Plan" },
-    { link: "/faq", title: "FAQ" },
-    { link: "/about", title: "About Us" },
+    { link: "/", title: translations[language]?.howWork },
+    { link: "/plan", title: translations[language]?.pricing },
+    { link: "/about", title: translations[language]?.whyUs },
+    { link: "/faq", title: translations[language]?.faq },
   ];
   const [scrolling, setScrolling] = useState(false);
   const token = useSelector(getToken);
@@ -54,7 +58,8 @@ const Header = ({ isModalOpen, setModalOpen }) => {
       ? "bg-black"
       : "bg-gradient-to-r from-[#FFFFFF0D] via-black to-[#FFFFFF0D]"
   } transition-all duration-300 ease-in-out`;
-  if (isLoginRoute || isRegisterRoute || isChatMediaRoute) return null;
+
+  if (isChatMediaRoute) return null;
 
   return (
     <header className="">
@@ -192,22 +197,8 @@ const Header = ({ isModalOpen, setModalOpen }) => {
                         {user.plan === "Free" && "Price: €0.99/credit"}
                       </p>
                       <span className="text-gray-400">
-                        1 Credit = 30 Min of audio/video to text transcription.
+                        1 credit = 30 Min of audio/video to text transcription.
                       </span>
-                      {/* <ul className="flex text-sm">
-                    <li className="mr-2">
-                      <a href="#" className="hover:underline">
-                        <span className="font-semibold text-white">799</span>
-                        <span>Following</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="hover:underline">
-                        <span className="font-semibold text-white">3,758</span>
-                        <span>Followers</span>
-                      </a>
-                    </li>
-                  </ul> */}
                     </div>
                   ) : (
                     <img
@@ -226,17 +217,26 @@ const Header = ({ isModalOpen, setModalOpen }) => {
                   to="/login"
                   className="text-white hover:border hover:border-white font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
                 >
-                  Login
+                  {translations[language]?.login}
                 </Link>
                 <Link
                   to="/register"
                   className="text-white bg-[#36D45A] hover:bg-transparent hover:border hover:border-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                 >
-                  Register
+                  {translations[language]?.register}
                 </Link>
               </>
             )}
-
+            <select
+              id="countries"
+              onChange={(e) => switchLanguage(e.target.value)}
+              className="bg-[#ffffff0d] border border-gray-300 text-white mx-3 text-sm rounded-lg focus:ring-[#ffffff0d] focus:border-[#ffffff0d] block w-full p-2.5"
+            >
+              <option defaultValue="en" value="en">
+                English
+              </option>
+              <option value="it">Italian</option>
+            </select>
             <button
               data-collapse-toggle="mobile-menu-2"
               type="button"
@@ -275,11 +275,13 @@ const Header = ({ isModalOpen, setModalOpen }) => {
             className="items-center justify-between hidden lg:flex lg:w-auto lg:order-1"
             id="mobile-menu-2"
           >
-            <ul className="flex flex-col mt-4 text-sm sm:text-lg font-semibold lg:flex-row lg:space-x-4 lg:mt-0">
-              {menuItems.map((item, index) => (
-                <MenuItem key={index} {...item} />
-              ))}
-            </ul>
+            {!(isLoginRoute || isRegisterRoute) && (
+              <ul className="flex flex-col mt-4 text-sm sm:text-lg font-semibold lg:flex-row lg:space-x-4 lg:mt-0">
+                {menuItems.map((item, index) => (
+                  <MenuItem key={index} {...item} />
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </div>

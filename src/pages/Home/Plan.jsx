@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { MobileSlider, PlanCard } from "../../components";
+import { useLanguage } from "../../utils/LanguageContext";
+import { translations } from "../../utils/translations";
 
 const Plan = () => {
+  const { language } = useLanguage();
   const location = useLocation();
   const className =
     location.pathname === "/plan"
@@ -10,128 +13,56 @@ const Plan = () => {
       : "bg-black p-5 py-16";
   const planData = [
     {
-      name: "Free (Always)",
-      text: "No Credit Card Required",
-      currency: "€",
+      name: translations[language]?.freeName,
+      text: translations[language]?.freeTxt,
+      currency: translations[language]?.currency,
       price: 0,
       tokenAmount: 10000,
-      description:
-        "Extensions: \n Price: €1.29/credit \n 1 Credit = 50 Min of audio/video to text transcription. \n Features: \n - All features of the Free package \n - Advanced Transcription: Speech-to-text conversion in over 30 languages with automatic language detection. \n - Diarization: Recognition and separation of different speakers in the audio. \n  - Word-level Timestamp: Each word in the transcribed text is linked to its exact moment in the audio. \n - Automated Summary: Get short and concise summaries of your audio content.",
-      serviceTitle:
-        "Kickstart your learning journey. Perfect to taste our capabilities.",
-      service: [
-        "10 Min of audio/video to text transcription",
-        "10,000 Tokens to ask to Virtual AI Professor",
-      ],
+      description: translations[language]?.freeDesc,
+      serviceTitle: translations[language]?.freeServiceTtl,
+      service: translations[language]?.freeService,
       creditPrice: 1.49,
-      featureTitle: "",
-      featureContent: [
-        "Basic Transcription: Up to 10 minutes of speech-to-text conversion in one of the main languages",
-        "Speech Support: Interactivity with AI for clarifications and basic Q&A.",
-      ],
+      featureTitle: translations[language]?.freeFeatureTtl,
+      featureContent: translations[language]?.freeFeatureContent,
     },
     {
-      name: "Basic",
-      text: "Only for the first 500 subscribers",
-      currency: "€",
+      name: translations[language]?.basicName,
+      text: translations[language]?.basicTxt,
+      currency: translations[language]?.currency,
       price: 20,
       tokenAmount: 600000,
-      description:
-        "*Elevate your studies. Advanced transcription and multilingual support for limitless learning.* \n - 10 Hours of audio/video to text transcription - 300,000 Tokens for questions to the Virtual AI Professor (ChatGPT 3.5)Extensions: \n Price: €1.29/credit \n 1 Credit = 50 Min of audio/video to text transcription. \n Features: \n - All features of the Free package \n - Advanced Transcription: Speech-to-text conversion in over 30 languages with automatic language detection. \n - Diarization: Recognition and separation of different speakers in the audio. \n  - Word-level Timestamp: Each word in the transcribed text is linked to its exact moment in the audio. \n - Automated Summary: Get short and concise summaries of your audio content.",
-      serviceTitle:
-        "Elevate your studies. Advanced transcription and multilingual support for limitless learning",
-      service: [
-        "12 Hours of audio/video to text transcription",
-        "300,000 Tokens to ask to Virtual AI Professor",
-      ],
+      description: translations[language]?.basicDesc,
+      serviceTitle: translations[language]?.basicServiceTtl,
+      service: translations[language]?.basicService,
       creditPrice: 1.29,
-      featureTitle: "Everything included in the free package, plus..",
-      featureContent: [
-        "Advanced Transcription: Speech-to-text conversion in over 30 languages with automatic language detection.",
-        "Diarization: Recognition and separation of different speakers in the audio.",
-        "Word-level Timestamp: Each word in the transcribed text is linked to its exact moment in the audio.",
-        "Automated Summary: Get short and concise summaries of your audio content.",
-      ],
+      featureTitle: translations[language]?.basicFeatureTtl,
+      featureContent: translations[language]?.basicFeatureContent,
     },
     {
-      name: "Advanced",
-      text: "Only for the first 500 subscribers",
-      currency: "€",
+      name: translations[language]?.advancedName,
+      text: translations[language]?.advancedTxt,
+      currency: translations[language]?.currency,
       price: 35,
       tokenAmount: 1500000,
-      description:
-        "*Maximize your experience. Analysis, personalized Q&A, and speed for those who want more.*" +
-        `\n` +
-        "- 25 Hours of audio/video to text transcription" +
-        `\n` +
-        "- 600,000 Tokens for questions to the Virtual AI Professor (ChatGPT 3.5)" +
-        `\n` +
-        "Extensions:" +
-        `\n` +
-        "Price: €1.09/credit" +
-        `\n` +
-        "1 Credit = 50 Min of audio/video to text transcription." +
-        `\n` +
-        "Features:" +
-        `\n` +
-        "- All features of the Basic package" +
-        `\n` +
-        "- Summary and Analysis: Automated summary, entity detection, and sentiment analysis." +
-        `\n` +
-        "- Custom Q&A Sessions: Deep interaction with AI to probe topics and get detailed explanations." +
-        `\n` +
-        "- Batch Processing: Process 1 hour of audio in about 12 seconds." +
-        `\n` +
-        "- Sentiment Analysis." +
-        `\n` +
-        "- Custom Q&A sessions." +
-        `\n` +
-        "- Pro Audio Intelligence for deeper, personalized analysis." +
-        `\n` +
-        "- Custom speech models and noise reduction." +
-        `\n` +
-        "- Custom vocabulary and punctuation.",
-      serviceTitle:
-        "Maximize your experience. Analysis, personalized Q&A, and speed for those who want more",
-      service: [
-        "25 Hours of audio/video to text transcription",
-        "600,000 Tokens to ask to Virtual AI Professor",
-      ],
+      description: translations[language]?.advancedDesc,
+      serviceTitle: translations[language]?.advancedServiceTtl,
+      service: translations[language]?.advancedService,
       creditPrice: 1.09,
-      featureTitle: "Everything included in the Basic package, plus..",
-      featureContent: [
-        "Summary and Analysis: Automated summary, entity detection, and sentiment analysis",
-        "Custom Q&A Sessions: Deep interaction with AI to probe topics and get detailed explanations",
-        "Batch Processing: Process 1 hour of audio in about 12 seconds",
-        "Sentiment Analysis.",
-        "Custom Q&A sessions.",
-        "Pro Audio Intelligence for deeper, personalized analysis.",
-        "Custom speech models and noise reduction.",
-        "Custom vocabulary and punctuation",
-      ],
+      featureTitle: translations[language]?.advancedFeatureTtl,
+      featureContent: translations[language]?.advancedFeatureContent,
       borderStyle: " shadow-[0_3px_20px_rgba(166,_245,_69,_0.7)]",
     },
     {
-      name: "Pro",
-      text: "Only for the first 500 subscribers",
+      name: translations[language]?.proName,
+      text: translations[language]?.proTxt,
       currency: "€",
       price: 100,
       tokenAmount: 2700000,
-      serviceTitle:
-        "The elite of learning. Exclusive access, enhanced mentor, and premium training for true pioneers.",
-      service: [
-        "50 Hours of audio/video to text transcription",
-        "300,000 Tokens to ask to Virtual AI Professor",
-      ],
+      serviceTitle: translations[language]?.proServiceTtl,
+      service: translations[language]?.proService,
       creditPrice: 0.99,
-      featureTitle: "Everything included in the Adcanced package, plus..",
-      featureContent: [
-        "Priority access to new features and updates",
-        "Ultimate Audio Intelligence with advanced language comprehension capabilities.",
-        "Enhanced virtual mentor",
-        "Exclusive access to webinars and training sessions",
-        "High-quality voice recognition guaranteed",
-      ],
+      featureTitle: translations[language]?.proFeatureTtl,
+      featureContent: translations[language]?.proFeatureContent,
     },
   ];
   const handleToggle = () => {
@@ -144,10 +75,10 @@ const Plan = () => {
     <div className={className}>
       <div className="flex flex-col mb-16">
         <h2 className="mb-3 text-2xl xl:text-4xl font-extrabold tracking-tight text-[#F3F4F6] text-center sm:text-center">
-          Choose the plan that fits your needs
+          {translations[language]?.planTtl}
         </h2>
         <p className="text-[#9CA3AF] text-md md:text-lg mx-2 sm:mx-0 text-center sm:text-center">
-          ChatMP3.ai is accessible to everyone at unbeatable prices
+          {translations[language]?.planTxt}
         </p>
       </div>
       <div className="flex justify-center items-center my-5">
@@ -167,7 +98,7 @@ const Plan = () => {
         </label>
       </div>
       <div className="2xl:flex mr-10 px-16 w-fit hidden">
-        {planData.map((item, index) => (
+        {planData?.map((item, index) => (
           <PlanCard
             key={index}
             {...item}

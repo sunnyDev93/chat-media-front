@@ -63,9 +63,9 @@ const Form = () => {
           </label>
           <input
             id="email"
+            type="email"
             {...register("email")}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-900 focus:border-gray-900 block w-full p-2.5" /* dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500*/
-            placeholder="name@policyWeb.com"
+            className="bg-[#FFFFFF0D] border border-[#4E4E52] text-white text-sm rounded-full focus:ring-[#FFFFFF0D] focus:border focus:border-[#4e4e52] block w-full p-2.5"
             required
           />
         </div>
@@ -80,7 +80,7 @@ const Form = () => {
             type="password"
             {...register("password")}
             id="password"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-900 focus:border-gray-900 block w-full p-2.5"
+            className="bg-[#FFFFFF0D] border border-[#4E4E52] text-white text-sm rounded-full focus:ring-[#FFFFFF0D] focus:border focus:border-[#4e4e52] block w-full p-2.5"
             required
           />
         </div>
@@ -102,7 +102,7 @@ const Form = () => {
         </div> */}
         <button
           type="submit"
-          className="shadow-[0_3px_20px_rgba(166,_245,_69,_0.7)] text-sm justify-center w-full hover:border-gray-800 md:flex md:mx-auto text-white bg-[#FFFFFF0D] hover:bg-basic mt-4 font-medium rounded-full px-5 py-2.5 text-center"
+          className="shadow-[0_3px_20px_rgba(166,_245,_69,_0.7)] text-sm justify-center w-full hover:border-gray-800 md:flex md:mx-auto text-white bg-[#FFFFFF0D] hover:bg-basic mt-10 font-medium rounded-full px-5 py-2.5 text-center"
         >
           {isLoading ? (
             <img

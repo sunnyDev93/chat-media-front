@@ -13,8 +13,9 @@ import {
   transSuccess,
 } from "../../store/chatMedia/slice";
 import { selectUser } from "../../store/auth/selectors";
-import FileButton from "../../components/FileButton";
 import { isBigFile } from "../../utils/fileProcess";
+import { translations } from "../../utils/translations";
+import { useLanguage } from "../../utils/LanguageContext";
 
 const isAudioOrVideoFile = (file) => {
   const allowedExtensions = ["mp3", "wav", "mp4", "avi", "mkv"]; // Add more allowed extensions if needed
@@ -24,6 +25,7 @@ const isAudioOrVideoFile = (file) => {
 
 const ChatDropzone = ({ lang, showMode, setShowMode }) => {
   console.log("file", lang);
+  const { language } = useLanguage();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(selectUser);
@@ -148,10 +150,10 @@ const ChatDropzone = ({ lang, showMode, setShowMode }) => {
             </svg>
           </div>
           <p className="flex justify-center text-white text-lg font-semibold">
-            Drop your File Here
+            {translations[language]?.dropTtl}
           </p>
           <p className="text-center text-sm text-[#F3F4F6] mt-2 mb-6">
-            You can drop Text Document, Video or Audio File here
+            {translations[language]?.dropTxt}
           </p>
         </div>
         {/* <FileButton /> */}

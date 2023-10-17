@@ -100,7 +100,7 @@ const FileDropzone = ({ lang, setLang }) => {
 
   return (
     <>
-      <div className="max-w-md mx-auto p-4 bg-black ">
+      <div className="max-w-md mx-auto p-4 relative z-40">
         <div
           {...getRootProps()}
           className="border-2 border-dashed border-gray-400 rounded-lg p-4 cursor-pointer"

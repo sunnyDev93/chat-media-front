@@ -1,16 +1,18 @@
 import React from "react";
+import { useLanguage } from "../../utils/LanguageContext";
+import { translations } from "../../utils/translations";
 import UserCard from "./UserCard";
 
 const Feed = () => {
+  const { language } = useLanguage();
   return (
     <div>
       <div className="max-w-screen-xl px-4 mx-auto text-center pt-10 lg:px-12 z-40">
         <div className="mb-6 text-white text-2xl xl:text-4xl font-bold">
-          We are Viral all over Italy
+          {translations[language]?.postTtl}
         </div>
         <p className="text-sm font-normal text-[#9CA3AF] lg:text-md sm:px-16 xl:px-48 animate-float-up">
-          Breaking barriers, beyond Languages: ChatMP3 is transforming the
-          Educational Landscape
+          {translations[language]?.postTxt}
         </p>
       </div>
       <div className="flex justify-center my-10">

@@ -2,31 +2,12 @@ import React, { useState } from "react";
 import { ChatDropzone, ChatHero, ChatMedia, Feed } from "../index";
 import { ImageCard } from "../../components";
 import ChatFooter from "./ChatFooter";
+import { useLanguage } from "../../utils/LanguageContext";
+import { translations } from "../../utils/translations";
 const Main = () => {
-  const [lang, setLang] = useState("en-US");
-  const cardContent = [
-    {
-      imgSrc: "./assets/img/design/stu.png",
-      title: "For Students",
-      content:
-        "Prepare for exams, get help with homework and answer any question you have!",
-      style: " shadow-[0_3px_10px_rgba(166,_245,_69,_0.7)]",
-    },
-    {
-      imgSrc: "./assets/img/design/mag.png",
-      title: "For Researchers",
-      content:
-        "Scientific papers, academic articles, books and much more. Get the information you need for your search!",
-      style: " shadow-[0_3px_10px_rgba(166,_245,_69,_0.7)]",
-    },
-    {
-      imgSrc: "./assets/img/design/note.png",
-      title: "For Researchers",
-      content:
-        "Legal contracts, financial reports, manuals, training material and much more. Ask any question you have and get insights in a few seconds!",
-      style: " shadow-[0_3px_10px_rgba(166,_245,_69,_0.7)]",
-    },
-  ];
+  const [lang] = useState("en-US");
+  const { language } = useLanguage();
+  const cardContent = translations[language]?.quesCardContent;
   const [showMode, setShowMode] = useState(true);
   return (
     <div>
@@ -42,7 +23,7 @@ const Main = () => {
           <Feed />
           <div className="max-w-screen-xl px-4 mx-auto text-center pt-10 lg:px-12 z-40 mt-16 xl:mt-32">
             <div className="mb-6 text-white text-2xl xl:text-4xl font-bold">
-              Who is ChatMP3 for ?
+              {translations[language]?.letterTtl}
             </div>
           </div>
           <div className="grid grid-cols-1 xl:grid-cols-3 mx-auto w-2/3 justify-between mt-10 mb-20">

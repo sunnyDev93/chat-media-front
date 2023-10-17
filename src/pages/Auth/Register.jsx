@@ -12,8 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Modal, RegisterForm } from "../../components";
 import { auth, db } from "../../firebase";
-import { startSession } from "../../storage/session";
-import { setAuth } from "../../store/auth/slice";
+import { handleRegister } from "../../store/auth/action";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -40,8 +39,8 @@ const Register = () => {
         });
       }
       console.log("ok");
-      toast.success("Sign-in with Google successful!");
-      navigate("/");
+      // toast.success("Sign-in with Google successful!");
+      // navigate("/");
       console.log(user);
       const userInfo = {
         uid: user.uid,
@@ -50,8 +49,9 @@ const Register = () => {
         phN: user.phoneNumber,
         avatar: user.photoURL,
       };
-      dispatch(setAuth({ userInfo }));
-      startSession(user);
+      // dispatch(setAuth({ userInfo }));
+      dispatch(handleRegister(userInfo, { navigate }));
+      // startSession(user);
     } catch (error) {
       console.error(error);
       alert(error.message);
@@ -90,10 +90,11 @@ const Register = () => {
           uid: res.user.uid,
           phN: res.user.phoneNumber,
         };
-        dispatch(setAuth({ userInfo }));
-        startSession(userInfo);
-        navigate("/login");
-        window.location.href = "/";
+        dispatch(handleRegister(userInfo, { navigate }));
+        // dispatch(setAuth({ userInfo }));
+        // startSession(userInfo);
+        // navigate("/login");
+        // window.location.href = "/";
         console.log(res);
       })
       .catch(() => {
@@ -103,23 +104,20 @@ const Register = () => {
   }
   return (
     <div>
-      <section className="max-h-screen grid grid-cols-2">
+      <section className="max-h-screen grid grid-cols-2 mt-32">
         <div className="absolute top-0 z-0 right-0 w-1/2">
           <img src="./assets/img/design/rbg2.png" className="" alt="img" />
         </div>
-        <div className="col-span-1 relative"></div>
-        <div className="col-span-1 relative">
-          <div className="flex-col items-center justify-center px-6 py-8 mx-auto mt-20 lg:py-0">
-            <Link
-              to="/"
-              className="z-40 flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
-            >
-              <img
-                className="h-16 mr-2"
-                src="./assets/img/white.webp"
-                alt="logo"
-              />
-            </Link>
+        <div className="col-span-1 relative flex justify-center">
+          <div className="absolute top-2/4 left-0  w-1/2 h-full z-0">
+            <img src="./assets/img/design/lbg1.png" alt="img" />
+          </div>
+          <div>
+            <img src="./assets/img/design/auth.png" alt="img" />
+          </div>
+        </div>
+        <div className="col-span-1 relative flex justify-center">
+          <div className="flex w-full items-center justify-center px-6 py-8 mt-10 lg:py-0">
             <div className="w-full rounded-lg md:mt-0 sm:max-w-md xl:p-0 bg-[#FFFFFF0D]">
               <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl dark:text-white text-center">
@@ -143,7 +141,7 @@ const Register = () => {
                   <button
                     type="button"
                     onClick={signInWithGoogle}
-                    className="z-40 w-full justify-center text-white bg-basic hover:font-bold focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 mb-2"
+                    className="z-40 w-full justify-center text-white bg-basic hover:font-bold focus:ring-4 font-medium rounded-full text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 mb-2"
                   >
                     <svg
                       className="w-4 h-4 mr-2"
@@ -165,7 +163,7 @@ const Register = () => {
                   <button
                     type="button"
                     onClick={() => setModalOpen(true)}
-                    className={`z-40 w-full justify-center text-black hover:text-white bg-white hover:bg-[#FFFFFF0D] hover:border-white font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center mr-2 mb-2`}
+                    className={`z-40 w-full justify-center text-black hover:text-white bg-white hover:bg-[#FFFFFF0D] hover:border-white font-medium rounded-full text-sm px-5 py-2.5 text-center items-center mr-2 mb-2`}
                   >
                     <i className="fas fa-phone mr-2"></i>
                     Sign Up with Phone

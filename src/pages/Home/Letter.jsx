@@ -1,6 +1,9 @@
 import React from "react";
+import { useLanguage } from "../../utils/LanguageContext";
+import { translations } from "../../utils/translations";
 
 const Letter = () => {
+  const { language } = useLanguage();
   return (
     <div>
       <section className="my-5 flex justify-center">
@@ -15,17 +18,10 @@ const Letter = () => {
           <div className="lg:flex items-center">
             <div>
               <span className="text-xl font-bold xl:text-3xl text-white">
-                Who is ChatMP3 for?
+                {translations[language]?.letterTtl}
               </span>
               <p className="text-white mt-3 w-10/12">
-                Whether you're a high school student grappling with academic
-                challenges, a university student looking to delve into complex
-                subjects, or a professional eager to make the most of every
-                conference or workshop, ChatMP3 is here for you. We've studied
-                the needs of each group and crafted a solution that meets every
-                demand, ensuring optimal learning and an unparalleled
-                experience. With ChatMP3, learning has never been so
-                straightforward and powerful
+                {translations[language]?.letterTxt}
               </p>
             </div>
           </div>
