@@ -44,7 +44,7 @@ const Header = ({ isModalOpen, setModalOpen }) => {
   const location = useLocation();
   const isLoginRoute = location.pathname.includes("login");
   const isRegisterRoute = location.pathname.includes("register");
-  const isChatMediaRoute = location.pathname.includes("chatmedia");
+  const isChatMediaRoute = location.pathname.includes("chatmedia/chat");
   const isAuthenticated = useSelector(getAuthStatus);
 
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ const Header = ({ isModalOpen, setModalOpen }) => {
           <Link to="/" className="flex items-center">
             {scrolling ? (
               <img
-                src="./assets/img/logo192.png"
+                src="../assets/img/logo192.png"
                 className="h-12 xl:h-16 mx-5"
                 alt="Logo"
               />

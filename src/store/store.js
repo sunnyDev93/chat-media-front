@@ -15,6 +15,7 @@ import authSlice from "./auth/slice";
 
 import thunk from "redux-thunk"; // Import Redux Thunk middleware
 import chatMediaSlice from "./chatMedia/slice";
+import priceMngSlice from "./priceMng/slice";
 
 const persistConfig = {
   key: "root",
@@ -29,6 +30,7 @@ const persistedReducer = persistReducer(
   combineReducers({
     auth: authSlice.reducer,
     chatMedia: chatMediaSlice.reducer,
+    priceMng: priceMngSlice.reducer,
   })
 );
 

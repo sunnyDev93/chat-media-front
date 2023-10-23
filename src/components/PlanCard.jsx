@@ -35,7 +35,7 @@ const PlanCard = ({
       if (selectedPlan === "year") {
         const plan = {
           name: name,
-          price: price * 10.8,
+          price: parseInt(price * 10.8),
           productOwner: "Simone Lamanna",
           description: description,
           quantity: 1,
@@ -109,7 +109,7 @@ const PlanCard = ({
                         <span>/</span>
                         <span>
                           {currency}
-                          {Number(price) * 10.8}
+                          {parseInt(price * 10.8)}
                         </span>
                       </div>
                     )}

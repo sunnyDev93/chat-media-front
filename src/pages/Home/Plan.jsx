@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { MobileSlider, PlanCard } from "../../components";
+import { selectPrices } from "../../store/priceMng/selectors";
+import { fetchAllPrices } from "../../utils/AdjustPrice";
 import { useLanguage } from "../../utils/LanguageContext";
 import { translations } from "../../utils/translations";
 
@@ -11,17 +15,22 @@ const Plan = () => {
     location.pathname === "/plan"
       ? "bg-black p-5 py-16 mt-32"
       : "bg-black p-5 py-16";
+  // const [prices, setPrices] = useState([]);
+  const prices = useSelector(selectPrices);
+  console.log("prices", prices);
+  const dispatch = useDispatch();
+
   const planData = [
     {
       name: translations[language]?.freeName,
       text: translations[language]?.freeTxt,
       currency: translations[language]?.currency,
-      price: 0,
+      price: Number(prices && prices[0]?.price),
       tokenAmount: 10000,
       description: translations[language]?.freeDesc,
       serviceTitle: translations[language]?.freeServiceTtl,
       service: translations[language]?.freeService,
-      creditPrice: 1.49,
+      creditPrice: Number(prices && prices[0]?.creditPrice),
       featureTitle: translations[language]?.freeFeatureTtl,
       featureContent: translations[language]?.freeFeatureContent,
     },
@@ -29,12 +38,12 @@ const Plan = () => {
       name: translations[language]?.basicName,
       text: translations[language]?.basicTxt,
       currency: translations[language]?.currency,
-      price: 20,
+      price: Number(prices && prices[1]?.price),
       tokenAmount: 600000,
       description: translations[language]?.basicDesc,
       serviceTitle: translations[language]?.basicServiceTtl,
       service: translations[language]?.basicService,
-      creditPrice: 1.29,
+      creditPrice: Number(prices && prices[1]?.creditPrice),
       featureTitle: translations[language]?.basicFeatureTtl,
       featureContent: translations[language]?.basicFeatureContent,
     },
@@ -42,12 +51,12 @@ const Plan = () => {
       name: translations[language]?.advancedName,
       text: translations[language]?.advancedTxt,
       currency: translations[language]?.currency,
-      price: 35,
+      price: Number(prices && prices[2]?.price),
       tokenAmount: 1500000,
       description: translations[language]?.advancedDesc,
       serviceTitle: translations[language]?.advancedServiceTtl,
       service: translations[language]?.advancedService,
-      creditPrice: 1.09,
+      creditPrice: Number(prices && prices[2]?.creditPrice),
       featureTitle: translations[language]?.advancedFeatureTtl,
       featureContent: translations[language]?.advancedFeatureContent,
       borderStyle: " shadow-[0_3px_20px_rgba(166,_245,_69,_0.7)]",
@@ -56,11 +65,11 @@ const Plan = () => {
       name: translations[language]?.proName,
       text: translations[language]?.proTxt,
       currency: "€",
-      price: 100,
+      price: Number(prices && prices[3]?.price),
       tokenAmount: 2700000,
       serviceTitle: translations[language]?.proServiceTtl,
       service: translations[language]?.proService,
-      creditPrice: 0.99,
+      creditPrice: Number(prices && prices[3]?.creditPrice),
       featureTitle: translations[language]?.proFeatureTtl,
       featureContent: translations[language]?.proFeatureContent,
     },
@@ -70,6 +79,9 @@ const Plan = () => {
     const newPlan = selectedPlan === "month" ? "year" : "month";
     setSelectedPlan(newPlan);
   };
+  useEffect(() => {
+    dispatch(fetchAllPrices());
+  }, [dispatch]);
   const [selectedPlan, setSelectedPlan] = useState("month");
   return (
     <div className={className}>

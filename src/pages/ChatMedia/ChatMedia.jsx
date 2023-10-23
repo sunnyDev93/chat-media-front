@@ -112,23 +112,6 @@ const ChatMedia = () => {
             {translations[language]?.transcript}
           </h2>
           {/* <div className="bg-[#101014] max-h-full m-5"></div> */}
-          <div className="flex items-baseline">
-            <label
-              htmlFor="countries"
-              className="block w-full mb-2 text-sm font-medium text-white mx-1"
-            >
-              {translations[language]?.lang}:
-            </label>
-            <select
-              id="countries"
-              onChange={(e) => setLang(e.target.value)}
-              className="bg-[#ffffff0d] border border-gray-300 text-gray-400 mx-3 mt-2 text-sm rounded-lg focus:ring-[#ffffff0d] focus:border-[#ffffff0d] block w-full p-2.5"
-            >
-              <option defaultValue={lang}>English</option>
-              <option value="it-IT">Italian</option>
-              <option value="es-ES">Spainish</option>
-            </select>
-          </div>
         </div>
         <TranscriptPanel lang={lang} setLang={setLang} />
       </div>

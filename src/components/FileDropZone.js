@@ -80,6 +80,7 @@ const FileDropzone = ({ lang, setLang }) => {
                 dispatch(transSuccess());
               } catch (error) {
                 dispatch(transSuccess());
+                toast.error("Transcripting Error, Invalid Audio File");
                 console.error("Error uploading file:", error);
               }
             } else {
@@ -90,7 +91,7 @@ const FileDropzone = ({ lang, setLang }) => {
         }
       }
     },
-    [dispatch, curToken, navigate, uid]
+    [dispatch, curToken, navigate, uid, lang]
   );
 
   const { getRootProps, getInputProps } = useDropzone({

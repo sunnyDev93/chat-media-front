@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { TypingText } from "../../components";
 import {
@@ -7,7 +7,7 @@ import {
   selectTranscript,
 } from "../../store/chatMedia/selectors";
 
-const TranscriptPanel = ({ lang, setLang }) => {
+const TranscriptPanel = () => {
   const transcript = useSelector(selectTranscript);
   const isSelected = useSelector(selectIsSelected);
   const isLoading = useSelector(selectIsLoading);

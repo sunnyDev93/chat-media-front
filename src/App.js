@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Price from "./admin/Price";
 import { Modal } from "./components";
 import { Footer, Header } from "./layout";
 import {
@@ -50,6 +51,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <ChatMedia />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/price"
+              element={
+                <PrivateRoute>
+                  <Price />
                 </PrivateRoute>
               }
             />

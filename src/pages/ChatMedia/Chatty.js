@@ -151,7 +151,7 @@ const ChatComponent = () => {
       </div>
       {isLoading && (
         <img
-          src="./assets/img/chatLoading.svg"
+          src="../assets/img/chatLoading.svg"
           alt="chatLoading"
           className="h-10 flex mr-auto"
         />
@@ -161,7 +161,7 @@ const ChatComponent = () => {
           type="text"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          className="rounded-none rounded-l-lg bg-[#FFFFFF0D] border border-[#FFFFFF34] text-gray-900 focus:ring-gray-300 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="rounded-none rounded-l-lg bg-[#FFFFFF0D] border border-[#FFFFFF34] text-white focus:ring-0 focus:border-basic block flex-1 min-w-0 w-full text-sm p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder={translations[language].chatPlaceHolder}
         />
         <button
