@@ -1,17 +1,33 @@
 import { Card } from "flowbite-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { getToken, selectUser } from "../store/auth/selectors";
 import { useLanguage } from "../utils/LanguageContext";
 import { makePayment } from "../utils/makePayment";
 import { translations } from "../utils/translations";
+import {
+  fetchAllUsers,
+  getReferedAdvancedUsersCnt,
+  getReferedBasicUsersCnt,
+  getReferedFreeUsersCnt,
+  getReferedProUsersCnt,
+  getReferedUsersCnt,
+} from "../utils/user/user.controller";
 
 export default function UserProfile() {
   const user = useSelector(selectUser);
+  const [users, setUsers] = useState([]);
   const token = useSelector(getToken);
   const { language } = useLanguage();
-
   const [creditCnt, setCreditCnt] = useState(1);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setUsers(await fetchAllUsers());
+    };
+    fetchData();
+  }, []);
 
   const handleChargeCredit = () => {
     let price = 1.49;
@@ -35,6 +51,25 @@ export default function UserProfile() {
     };
     makePayment(plan, paymentMethodTypes, token);
   };
+  const [link, setLink] = useState("");
+
+  useEffect(() => {
+    if (user) {
+      const uid = user.uid;
+      fetch(`http://localhost:8000/api/auth/${uid}/referralCode`)
+        .then((response) => response.json())
+        .then((data) => {
+          setLink(
+            `${window.location.host}/register?referralCode=${data.referralCode}`
+          );
+        });
+    }
+  }, [user]);
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(link);
+    toast.info("Copied Referral URL!\n" + link);
+  };
   return (
     <Card>
       <div className="flex justify-end px-4 pt-4 z-50 bg-white blur-0"></div>
@@ -43,10 +78,29 @@ export default function UserProfile() {
           {translations[language].userPlanTtl} : {user.plan}
         </h5>
         <span className="text-sm text-gray-500 mt-2">
-          {translations[language].token}: {user.token}
+          {translations[language].token}: {user.token} (
+          {parseInt(Number(user.token) / 60000)}h {Number(user.token) % 60} min)
         </span>
         <span className="text-sm text-gray-500 mt-2">
           {translations[language].role}: {user.role}
+        </span>
+        <span className="text-sm text-gray-500 mt-2">
+          Referred Users: {getReferedUsersCnt(users, user?.referalCode)}
+        </span>
+        <span className="text-sm text-gray-500 mt-2">
+          Referred Free Users:{" "}
+          {getReferedFreeUsersCnt(users, user?.referalCode)}
+        </span>
+        <span className="text-sm text-gray-500 mt-2">
+          Referred Basic Users:{" "}
+          {getReferedBasicUsersCnt(users, user?.referalCode)}
+        </span>
+        <span className="text-sm text-gray-500 mt-2">
+          Referred Advanced Users:{" "}
+          {getReferedAdvancedUsersCnt(users, user?.referalCode)}
+        </span>
+        <span className="text-sm text-gray-500 mt-2">
+          Referred Pro Users: {getReferedProUsersCnt(users, user?.referalCode)}
         </span>
         <span className="text-sm text-gray-500 mt-2">
           {user.plan === translations[language].freeName &&
@@ -62,7 +116,7 @@ export default function UserProfile() {
         </span>
         <span className="text-sm text-gray-500 mt-2">
           1 {translations[language].credit} = 30{" "}
-          {translations[language].creditSup}.
+          {translations[language].creditSup}
         </span>
         <div className="mt-3 flex space-x-3 lg:mt-6">
           <div className="flex">
@@ -86,6 +140,29 @@ export default function UserProfile() {
           >
             <p>Sign out</p>
           </button> */}
+        </div>
+      </div>
+      <div className="flex">
+        <button
+          onClick={copyToClipboard}
+          className="text-sm border border-gray-300 p-2 border-r-0"
+        >
+          Refer
+        </button>
+        <div>
+          <input
+            type="text"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            placeholder="referral code here"
+            value={
+              window.location.host +
+              "/" +
+              "register?referralCode=" +
+              user?.referalCode
+            }
+            onChange={(e) => e.target.value}
+            required
+          />
         </div>
       </div>
     </Card>

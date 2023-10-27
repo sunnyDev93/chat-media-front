@@ -8,6 +8,7 @@ import { getAuthStatus, getToken, selectUser } from "../store/auth/selectors";
 import getUser from "../utils/user/getUser";
 import { useLanguage } from "../utils/LanguageContext";
 import { translations } from "../utils/translations";
+import { toast } from "react-toastify";
 
 const Header = ({ isModalOpen, setModalOpen }) => {
   const { language, switchLanguage } = useLanguage();
@@ -52,6 +53,26 @@ const Header = ({ isModalOpen, setModalOpen }) => {
   const handleLogout = () => {
     dispatch(logout({ navigate }));
     endSession();
+  };
+
+  const [link, setLink] = useState("");
+
+  useEffect(() => {
+    if (user) {
+      const uid = user.uid;
+      fetch(`http://localhost:8000/api/auth/${uid}/referralCode`)
+        .then((response) => response.json())
+        .then((data) => {
+          setLink(
+            `${window.location.host}/register?referralCode=${data.referralCode}`
+          );
+        });
+    }
+  }, [user]);
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(link);
+    toast.info("Copied Referral URL!\n" + link);
   };
   const headerClasses = `z-50 w-10/12 xl:w-2/3 mx-auto flex  py-5 px-5 xl:px-10 rounded-b-2xl  transition-all duration-300 ease-in-out ${
     scrolling
@@ -236,7 +257,13 @@ const Header = ({ isModalOpen, setModalOpen }) => {
                 English
               </option>
               <option value="it">Italian</option>
-            </select>
+            </select>{" "}
+            <button
+              onClick={copyToClipboard}
+              className="text-white text-sm underline"
+            >
+              Refer
+            </button>
             <button
               data-collapse-toggle="mobile-menu-2"
               type="button"

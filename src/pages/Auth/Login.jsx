@@ -77,7 +77,7 @@ const Login = () => {
   };
 
   const onOTPVerify = (values) => {
-    // console.log(values.code);
+    console.log(values);
     if (values.code) {
       window?.confirmationResult
         .confirm(values?.code)

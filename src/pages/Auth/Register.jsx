@@ -5,7 +5,7 @@ import {
   signInWithPopup,
 } from "@firebase/auth";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,6 +15,17 @@ import { auth, db } from "../../firebase";
 import { handleRegister } from "../../store/auth/action";
 
 const Register = () => {
+  const [referralCode, setReferralCode] = useState(null);
+
+  // On component mount, check if a referral code was provided in the URL
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("referralCode");
+    if (code) {
+      setReferralCode(code);
+    }
+  }, []);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { register: phoneRegister, handleSubmit: phoneHandleSubmit } =
@@ -48,6 +59,7 @@ const Register = () => {
         name: user.displayName,
         phN: user.phoneNumber,
         avatar: user.photoURL,
+        referedCode: referralCode,
       };
       // dispatch(setAuth({ userInfo }));
       dispatch(handleRegister(userInfo, { navigate }));
@@ -89,6 +101,7 @@ const Register = () => {
         const userInfo = {
           uid: res.user.uid,
           phN: res.user.phoneNumber,
+          referedCode: referralCode,
         };
         dispatch(handleRegister(userInfo, { navigate }));
         // dispatch(setAuth({ userInfo }));
@@ -123,7 +136,7 @@ const Register = () => {
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl dark:text-white text-center">
                   Register
                 </h1>
-                <RegisterForm />
+                <RegisterForm referralCode={referralCode} />
                 <div className="flex justify-center">
                   <Link to="/login" className="text-[#F3F4F6] text-sm z-40">
                     Already have an account?{" "}

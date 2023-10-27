@@ -7,14 +7,14 @@ import { handleRegister } from "../store/auth/action";
 import { isLoadingStatus } from "../store/auth/selectors";
 import { signupStart } from "../store/auth/slice";
 
-const RegisterForm = () => {
+const RegisterForm = ({ referralCode }) => {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const [error, setError] = useState(false);
   const navigate = useNavigate();
   const isLoading = useSelector(isLoadingStatus);
 
-  const onSubmit = async ({ email, password, phone, confirmPwd }) => {
+  const onSubmit = async ({ username, email, password, phone, confirmPwd }) => {
     if (password !== confirmPwd) {
       setError(true);
     } else {
@@ -32,10 +32,12 @@ const RegisterForm = () => {
           uid: user.uid,
           email: user.email,
           password: password,
-          name: user.displayName,
+          name: username,
           phN: user.phoneNumber,
           avatar: user.photoURL,
+          referedCode: referralCode,
         };
+        console.log(userInfo);
         dispatch(handleRegister(userInfo, { navigate }));
         // dispatch(setAuth({ userInfo }));
         // startSession(user);
@@ -54,13 +56,28 @@ const RegisterForm = () => {
             htmlFor="email"
             className="block mb-2 text-sm font-medium text-white"
           >
+            Name
+          </label>
+          <input
+            id="username"
+            {...register("username")}
+            type="text"
+            className="bg-[#FFFFFF0D] border border-[#4E4E52] text-white text-sm rounded-full focus:ring-[#FFFFFF2D] focus:border focus:border-[#4E4E52] block w-full p-2.5"
+            required
+          />
+        </div>
+        <div className="mb-6">
+          <label
+            htmlFor="email"
+            className="block mb-2 text-sm font-medium text-white"
+          >
             Email
           </label>
           <input
             id="email"
             {...register("email")}
             type="email"
-            className="bg-[#FFFFFF0D] border border-[#4E4E52] text-[#4E4E52] text-sm rounded-full focus:ring-[#FFFFFF2D] focus:border focus:border-[#4E4E52] block w-full p-2.5"
+            className="bg-[#FFFFFF0D] border border-[#4E4E52] text-white text-sm rounded-full focus:ring-[#FFFFFF2D] focus:border focus:border-[#4E4E52] block w-full p-2.5"
             required
           />
         </div>
@@ -75,7 +92,7 @@ const RegisterForm = () => {
             type="password"
             {...register("password")}
             id="password"
-            className="bg-[#FFFFFF0D] border-[#4E4E52] text-[#4E4E52] text-sm rounded-full focus:ring-[#4E4E52] focus:border-[#4E4E52] block w-full p-2.5"
+            className="bg-[#FFFFFF0D] border-[#4E4E52] text-white text-sm rounded-full focus:ring-[#4E4E52] focus:border-[#4E4E52] block w-full p-2.5"
             required
           />
         </div>
@@ -92,7 +109,7 @@ const RegisterForm = () => {
             {...register("confirmPwd")}
             className={`${
               error && "border-2 border-red-500"
-            } bg-[#FFFFFF0D] border-[#4E4E52] text-[#4E4E52] text-sm rounded-full focus:ring-[#4E4E52] focus:border-[#4E4E52] block w-full p-2.5`}
+            } bg-[#FFFFFF0D] border-[#4E4E52] text-white text-sm rounded-full focus:ring-[#4E4E52] focus:border-[#4E4E52] block w-full p-2.5`}
             required
           />
           {error && (
