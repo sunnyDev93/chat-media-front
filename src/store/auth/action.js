@@ -12,20 +12,6 @@ import {
 // import jwtEncode from "jwt-encode";
 
 export const handleLogin = (userInfo) => async (dispatch) => {
-  // try {
-  //     const response = await fetch("http://localhost:8000/api/auth/login", userInfo);
-  //     const token = response.accessToken;
-  //   // const isAuthenticated = true;
-  //   dispatch(setAuth(token));
-  //   startSession(token);
-  //   // navigate("/");
-  //   window.location.href = "/";
-  //   toast.success("Welcome to ChatMedia!");
-  // } catch (error) {
-  //   console.log("error", error);
-  //   // dispatch(setError({ error: "auth", message: "failed" }));
-  //   console.log("error");
-  // }
   try {
     dispatch(startAuth());
     const response = await fetch("http://localhost:8000/api/auth/login", {

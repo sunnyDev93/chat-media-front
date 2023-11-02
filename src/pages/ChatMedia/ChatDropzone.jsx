@@ -62,7 +62,6 @@ const ChatDropzone = ({ lang, showMode, setShowMode }) => {
                   formData,
                   {
                     headers: {
-                      uid: uid,
                       "Content-Type": "multipart/form-data",
                     },
                   }
